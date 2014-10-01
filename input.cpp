@@ -11,85 +11,62 @@ int main(void)
   char buffer[5];
   char num_buf[20];
   char let_buf[20];
-  char* c; //ptr
+  char* c; 
   int num_trck = 0;
   int let_trck = 0;
   int k = 0;
 
-  cout<< "Enter number" << endl;
+  cout<< "Enter Resistor Value: " << endl;
   cin >> buffer;
-  c = buffer; // set c ptr to buffer[0]
+  c = buffer; 
 
-
-/*  PARSING STRING  */
+/*  BEGIN PARSING STRING  */
 
 do
 {
-	 if(*c >= '0' && *c <= '9')
+	 if( *c == '.' || *c >= '0' && *c <= '9')
 	{
-	  cout << "valid number" << endl;
-          cout << "number: " << *c << endl;
           num_buf[num_trck] = *c;
           num_trck++;
 	  c++;
 	}
 	 else // assuming there is only 1 letter appending entry
 	{ 
-	   cout<< "letter:" << *c << endl;
            let_buf[let_trck] = *c;
            let_trck++;
 	   break;   
 	}
 
-
 }while(c);
 
-// append delimiters manually
 
 num_buf[num_trck] = '\n';
 let_buf[let_trck] = '\n';
 
-/*  PRINT OUT BUFERS */
-
-cout<< "---------------------------" << endl;
-
-//set c to point to num_buf[]
  c = num_buf;
 
- while(*c != '\n')
-   { 
-     cout<< *c << endl;
-     c++; 
-   }
-
-//set c to point to let_buf[]
- c = let_buf;
-
- while(*c != '\n')
-   { 
-     cout<< *c << endl;
-     c++; 
-   }
-
-cout<< "---------------------------" << endl;
-// CONVERT BUFFERS TO DOUBLES 
+// CONVERT NUM_BUFFER TO TYPE DOUBLE
 
 double value = 0.0;
 value = atof(num_buf);
 
-cout<< "Double value = " << value << endl;
-// still need to convert letter: K and M to 1000 and 100000 respectively
 
-cout<< "EOF" << endl << endl;
-   
+c=let_buf; //reset ptr
 
+// ENSURE CASE SENSITIVE INPUTS
 
-
-
-  
-
-
-
+if(*c ==  'k' || *c == 'K')
+{
+  value =  value*1000;
+ cout<< "final value: " << value << endl;
+}
+else if(*c == 'm' || *c == 'M')
+{
+  value = value*1000000;
+  cout<< "final value: " << value << endl;
+}
+else 
+cout<< "final value: " << value << endl;
 
  return 0;
 }

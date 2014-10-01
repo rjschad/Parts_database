@@ -34,7 +34,7 @@ class List
    ~List(); // destructor
 
     void print();            // print list
-    void insert(int num);    // insert in order
+    void insert(double num);    // insert in order
     bool empty();            // check if list is empty
     void addfront(int num);  // add to front of list
     void addback(int num);   // add to back of list
@@ -47,7 +47,7 @@ class List
    class Node
     {
      public:
-       Node(Node* prev, Node* next, int num)
+       Node(Node* prev, Node* next, double num)
        {
          m_ptr_prev = prev; // pointer to next node
          m_ptr_next = next; // pointer to previous node
@@ -56,7 +56,7 @@ class List
 
        Node* m_ptr_prev; // previous pointer
        Node* m_ptr_next; // next pointer
-       int m_num;        // number stores in node
+       double m_num;        // number stores in node
 
     };
 

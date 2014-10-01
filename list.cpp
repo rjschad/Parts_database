@@ -211,7 +211,7 @@ Out: none
 
 */
 
-void List::insert(int num)
+void List::insert(double num)
 {
 
 /*------ FRONT INSERTION: EMPTY LIST -----*/
