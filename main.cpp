@@ -36,8 +36,9 @@
 
 using namespace std;
 
-/* instantiate object */
+/* instantiate objects GLOBAL */
 List list;
+//ofstream ofile("output.txt"); // bash/vim creates regardless
 
 ////////////////////////////////////////////////////////////
 /*
@@ -284,9 +285,6 @@ int main( int argc, char* argv[])
 
      case 7: // INSERT
        clr_scrn();
-     //  cout<< "Insert number: " << endl;
-       //cin >> parser();
-       //cout<< "parser: " << parser() << endl;
        list.track++;
        list.insert(parser());
        clr_scrn();
@@ -303,8 +301,9 @@ int main( int argc, char* argv[])
        break;
 
      case 9: // QUIT
+     list.pushto_out(); // write list contents to output file
        clr_scrn();
-       cout<<"Quitting program..."<< endl;
+       cout<<" Pushing contents to output file. \n Quitting program..."<< endl;
        return 0; // return sucessfull
 
      case 10: // SEARCH

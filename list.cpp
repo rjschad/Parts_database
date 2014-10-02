@@ -13,9 +13,20 @@
  * =====================================================================================
  */
 #include "list.h"
+#include <fstream>
 #include <iostream>
 
 using namespace std;
+
+ofstream ofile("output1.txt"); // bash/vim creates regardless
+
+/*  needs to be in main()?
+    if(!ofile)
+     {
+       cerr<<"Can't open file" << endl;
+       exit(1);
+     }
+*/
 
 ////////////////////////////////////////////////////////////
 /*
@@ -406,9 +417,11 @@ void List::print()
 
   while(ptr_print != NULL)
   {
+     //ofile << ptr_print -> m_num << endl; // write to output file
      cout<< ptr_print->m_num << endl;
      ptr_print = ptr_print->m_ptr_next;
      tracker++;
+
   }
 
 
@@ -433,7 +446,18 @@ bool List::empty()
      return false;
 }
 
+void List:: pushto_out(void)
+{
+ 
+  Node* ptr_print = ptr_head;
 
+ while(ptr_print != NULL) 
+  {
+     ofile << ptr_print -> m_num << endl; 
+     ptr_print = ptr_print->m_ptr_next;
+  }
+
+}
 
 
 
