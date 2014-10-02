@@ -30,6 +30,7 @@ List::List()
 {
   ptr_head = NULL;
   ptr_tmp = ptr_head;
+  ptr_lookup = ptr_head;
 }
 
 ////////////////////////////////////////////////////////////
@@ -54,6 +55,56 @@ List::~List()
      delete ptr_tmp;
    }
  }
+
+////////////////////////////////////////////////////////////
+/*
+
+Desc: lookup specific part
+In: number (double)
+Out: none
+
+*/
+
+
+void List::lookup(double num)
+{
+   ptr_lookup = ptr_head;
+   
+   if(ptr_head == NULL)
+     {
+      cout<< "No match found beacuse list is empty." << endl;
+      return; 
+     }
+
+    //cout<< "here1" << endl;
+    //cout<<"ptr: " <<ptr_lookup << endl;
+    //cout<<"ptr->m_next: "<< ptr_lookup->m_ptr_next << endl;
+   
+   while(num > ptr_lookup->m_num && ptr_lookup->m_ptr_next != NULL)
+     ptr_lookup = ptr_lookup->m_ptr_next;
+ 
+    //cout<< "here2" << endl;
+
+    if(ptr_lookup->m_num == num)
+      {  
+         //cout<< "here3" << endl;
+         cout<< "Match found:" << num << endl;
+         return;
+      }
+
+   while(num < ptr_lookup->m_num && ptr_lookup->m_ptr_prev != NULL)
+     ptr_lookup = ptr_lookup->m_ptr_prev;
+ 
+    if(ptr_lookup->m_num == num)
+      {  
+         cout<< "Match found:" << num << endl;
+         return;
+      }
+
+    cout<<"Entry not found" << endl;
+
+}
+
 
 ////////////////////////////////////////////////////////////
 /*

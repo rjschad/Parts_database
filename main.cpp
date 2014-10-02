@@ -140,7 +140,8 @@ int Display(void)
   cout<<"6) Remove Back" << endl;
   cout<<"7) Insert" << endl;
   cout<<"8) Print" << endl;
-  cout<<"9) Quit" << endl << endl;
+  cout<<"9) Quit" << endl;
+  cout<<"10) Search" << endl << endl;
 
   cin>> choice;
   return choice;
@@ -305,6 +306,13 @@ int main( int argc, char* argv[])
        clr_scrn();
        cout<<"Quitting program..."<< endl;
        return 0; // return sucessfull
+
+     case 10: // SEARCH
+       clr_scrn();
+       list.lookup(parser());
+       user_choice();
+       clr_scrn();
+       break;
 
      default:
        cout<<" Invalid entry: Exiting program." << endl;

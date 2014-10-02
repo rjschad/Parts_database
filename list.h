@@ -33,8 +33,9 @@ class List
     List(); // contructor
    ~List(); // destructor
 
+    void lookup(double num); // lookup specific part
     void print();            // print list
-    void insert(double num);    // insert in order
+    void insert(double num); // insert in order
     bool empty();            // check if list is empty
     void addfront(int num);  // add to front of list
     void addback(int num);   // add to back of list
@@ -67,6 +68,7 @@ class List
  Node* ptr_remover; // pointer removes front numbers
  Node* ptr_backrmv; // pointer removes back numbers
  Node* ptr_addback; // pointer adds numbers to back of list
+ Node* ptr_lookup;  // pointer used for lookup
 
 };
 
