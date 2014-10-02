@@ -12,6 +12,7 @@
  *
  * =====================================================================================
  */
+
 #include "list.h"
 #include <fstream>
 #include <iostream>
@@ -446,12 +447,23 @@ bool List::empty()
      return false;
 }
 
+////////////////////////////////////////////////////////////
+/*
+
+Desc: push list to designated ouput file
+In: none
+Out: none
+
+*/
+
+//void List:: pushto_out(ofstream& write_file) // pass by reference experiment
+// remember to comment out the ofstream object in beginning and place in main.cpp
 void List:: pushto_out(void)
 {
  
   Node* ptr_print = ptr_head;
 
- while(ptr_print != NULL) 
+  while(ptr_print != NULL) 
   {
      ofile << ptr_print -> m_num << endl; 
      ptr_print = ptr_print->m_ptr_next;

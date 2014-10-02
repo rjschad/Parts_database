@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "list.h"
+#include <fstream>
 
 #define TRUE 1
 #define FALSE 0
@@ -38,7 +39,7 @@ using namespace std;
 
 /* instantiate objects GLOBAL */
 List list;
-//ofstream ofile("output.txt"); // bash/vim creates regardless
+
 
 ////////////////////////////////////////////////////////////
 /*
@@ -215,6 +216,20 @@ int main( int argc, char* argv[])
    int num_add =0;
 
 
+/* PUSH INPUT FILES INTO LIST */
+//------------------------------------------
+   double in_num = 0.00;
+   ifstream input("input1.txt");
+   
+   input >> in_num;
+  
+   while(input)
+    {
+      list.insert(in_num);
+      input >> in_num;
+    }
+//------------------------------------------
+
  do
  {
   clr_scrn(); //clear screen initally
@@ -303,7 +318,7 @@ int main( int argc, char* argv[])
      case 9: // QUIT
      list.pushto_out(); // write list contents to output file
        clr_scrn();
-       cout<<" Pushing contents to output file. \n Quitting program..."<< endl;
+       cout<<" Pushing contents to output file. \n Quitting program...\n"<< endl;
        return 0; // return sucessfull
 
      case 10: // SEARCH
