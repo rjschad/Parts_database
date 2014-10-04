@@ -219,7 +219,7 @@ int main( int argc, char* argv[])
 /* PUSH INPUT FILES INTO LIST */
 //------------------------------------------
    double in_num = 0.00;
-   ifstream input("input1.txt");
+   fstream input("input1.txt", ios::in);
    
    input >> in_num;
   
@@ -316,7 +316,7 @@ int main( int argc, char* argv[])
        break;
 
      case 9: // QUIT
-     list.pushto_out(); // write list contents to output file
+       list.pushto_out(); // write list contents to output file
        clr_scrn();
        cout<<" Pushing contents to output file. \n Quitting program...\n"<< endl;
        return 0; // return sucessfull
@@ -329,8 +329,10 @@ int main( int argc, char* argv[])
        break;
 
      default:
-       cout<<" Invalid entry: Exiting program." << endl;
-       return 1; // return error
+       clr_scrn();
+       cout<< "You have entered an invalid choice. \n Please choose again from the following choices.\n";
+       user_choice();
+       break;
 
    }
 

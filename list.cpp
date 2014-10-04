@@ -19,7 +19,7 @@
 
 using namespace std;
 
-ofstream ofile("output1.txt"); // bash/vim creates regardless
+fstream ofile("output1.txt", ios::out); // bash/vim creates regardless
 
 /*  needs to be in main()?
     if(!ofile)
