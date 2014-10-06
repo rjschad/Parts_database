@@ -14,20 +14,13 @@
  */
 
 #include "list.h"
+//#include "var.h"
 #include <fstream>
 #include <iostream>
 
 using namespace std;
 
-fstream ofile("output1.txt", ios::out); // bash/vim creates regardless
 
-/*  needs to be in main()?
-    if(!ofile)
-     {
-       cerr<<"Can't open file" << endl;
-       exit(1);
-     }
-*/
 
 ////////////////////////////////////////////////////////////
 /*
@@ -456,16 +449,17 @@ Out: none
 
 */
 
-//void List:: pushto_out(ofstream& write_file) // pass by reference experiment
 // remember to comment out the ofstream object in beginning and place in main.cpp
-void List:: pushto_out(void)
+//void List:: pushto_out(void)
+void List:: pushto_out(fstream& fileout) // pass by reference experiment
 {
  
   Node* ptr_print = ptr_head;
 
   while(ptr_print != NULL) 
   {
-     ofile << ptr_print -> m_num << endl; 
+     fileout << ptr_print -> m_num << endl; 
+//     ifile << ptr_print -> m_num << endl; 
      ptr_print = ptr_print->m_ptr_next;
   }
 

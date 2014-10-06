@@ -12,10 +12,14 @@
  *
  * =====================================================================================
  */
+#include <fstream>
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
 
 #ifndef LIST_H
 #define LIST_H
-
 
 ////////////////////////////////////////////////////////////
 /*
@@ -33,7 +37,7 @@ class List
     List(); // contructor
    ~List(); // destructor
    
-    void pushto_out(void);   // push list contents to output file
+    void pushto_out(fstream& fileout);   // push list contents to output file
     void lookup(double num); // lookup specific part
     void print();            // print list
     void insert(double num); // insert in order

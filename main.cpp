@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "list.h"
+//#include "var.h"
 #include <fstream>
 
 #define TRUE 1
@@ -214,19 +215,29 @@ int main( int argc, char* argv[])
    list.track = 0; // track number of items in list
    int number=0;
    int num_add =0;
+   double in_num = 0.00; 
 
+/* CREATE I/O OBJECTS USED FOR COPYING */
+fstream ifile("output1.txt", ios::in);
+fstream ofile("input1.txt", ios::out); 
 
-/* PUSH INPUT FILES INTO LIST */
+/* COPY OUTPUT FILE TO INPUT FILE */
+ofile << ifile.rdbuf();
+ofile.close();
+ifile.close();
+
+/* CREATE NEW I/O OBJECTS */
+fstream ifile1("input1.txt", ios::in);
+fstream ofile1("output1.txt", ios::out); 
+
+/* LOAD INPUT FILES INTO LIST */
 //------------------------------------------
-   double in_num = 0.00;
-   fstream input("input1.txt", ios::in);
-   
-   input >> in_num;
-  
-   while(input)
+   ifile1 >> in_num;
+
+   while(ifile1)
     {
       list.insert(in_num);
-      input >> in_num;
+      ifile1 >> in_num;
     }
 //------------------------------------------
 
@@ -316,9 +327,9 @@ int main( int argc, char* argv[])
        break;
 
      case 9: // QUIT
-       list.pushto_out(); // write list contents to output file
+       list.pushto_out(ofile1); // write list contents to output file
        clr_scrn();
-       cout<<" Pushing contents to output file. \n Quitting program...\n"<< endl;
+       cout<< "Writing to output file.\nQuitting program...\n"<< endl;
        return 0; // return sucessfull
 
      case 10: // SEARCH
@@ -330,14 +341,15 @@ int main( int argc, char* argv[])
 
      default:
        clr_scrn();
-       cout<< "You have entered an invalid choice. \n Please choose again from the following choices.\n";
+       cout<< "You have entered an invalid choice.\nPlease choose again from the following choices.\n";
        user_choice();
        break;
 
    }
 
 
-} while(1); // infinite loop force
+} while(1);
+
 
    cout<<endl;
    cout << "end of program !!! \n";
