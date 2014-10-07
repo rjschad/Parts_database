@@ -12,14 +12,15 @@
  *
  * =====================================================================================
  */
-#include <fstream>
-#include <iostream>
-#include <stdlib.h>
-using namespace std;
-
 
 #ifndef LIST_H
 #define LIST_H
+
+#include <fstream>
+#include <iostream>
+#include <stdlib.h>
+#include "Part.h"
+using namespace std;
 
 ////////////////////////////////////////////////////////////
 /*
@@ -37,29 +38,31 @@ class List
     List(); // contructor
    ~List(); // destructor
    
-    void pushto_out(fstream& fileout);   // push list contents to output file
-    void lookup(double num); // lookup specific part
-    void print();            // print list
-    void insert(double num); // insert in order
-    bool empty();            // check if list is empty
-    void addfront(int num);  // add to front of list
-    void addback(int num);   // add to back of list
-    void remove_front(void); // remove from front of list
-    void remove_back(void);  // remove from back of list
-    int  track;              // track number of elements in list
+    void pushto_out(fstream& fileout);       // push list contents to output file
+    void lookup(Resistor* r_ptr, double num);  // lookup specific part
+    void print();                            // print list
+    void insert(Resistor* r_ptr, double num); // insert in order
+    bool empty();                            // check if list is empty
+    void addfront(Resistor* r_ptr, int num);  // add to front of list
+    void addback(Resistor* r_ptr, int num);   // add to back of list
+    void remove_front(void);                 // remove from front of list
+    void remove_back(void);                  // remove from back of list
+    int  track;                              // track number of elements in list
 
   private:   
 
    class Node
     {
      public:
-       Node(Node* prev, Node* next, double num)
+       Node(Node* prev, Node* next, double num, Resistor* res_ptr)
        {
          m_ptr_prev = prev; // pointer to next node
          m_ptr_next = next; // pointer to previous node
-         m_num = num;
+         m_num = num; // this is getting moved to the Resistor class
+         m_res_ptr = res_ptr;
        }
 
+       Resistor* m_res_ptr;
        Node* m_ptr_prev; // previous pointer
        Node* m_ptr_next; // next pointer
        double m_num;        // number stores in node

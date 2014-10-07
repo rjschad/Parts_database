@@ -14,6 +14,7 @@
  */
 
 #include "list.h"
+#include "Part.h"
 //#include "var.h"
 #include <fstream>
 #include <iostream>
@@ -71,7 +72,7 @@ Out: none
 */
 
 
-void List::lookup(double num)
+void List::lookup(Resistor* r_ptr, double num)
 {
    ptr_lookup = ptr_head;
    
@@ -119,14 +120,14 @@ In: number (num)
 Out: none
 
 */
-void List::addback(int num)
+void List::addback(Resistor* r_ptr , int num)
 {
   ptr_addback = ptr_head;
 
 /* check if list is empty  */
 
   if(ptr_head == NULL)
-    ptr_head = new Node(NULL,ptr_head,num);
+    ptr_head = new Node(NULL,ptr_head,num, r_ptr);
 
   else
  {
@@ -135,7 +136,7 @@ void List::addback(int num)
 
 /*  traverse list until end is found  */
 
-    ptr_addback->m_ptr_next = new Node(ptr_addback,ptr_addback->m_ptr_next,num);
+    ptr_addback->m_ptr_next = new Node(ptr_addback,ptr_addback->m_ptr_next,num, r_ptr);
  }
 
  ptr_tmp = ptr_head;
@@ -240,18 +241,18 @@ Out: none
 
 */
 
-void List::addfront(int num)
+void List::addfront(Resistor* r_ptr,int num)
 {
 
 /*  check if list is empty  */
 
   if(ptr_head == NULL)
-    ptr_head = new Node(NULL,ptr_head,num);
+    ptr_head = new Node(NULL,ptr_head,num,r_ptr);
 
 /*  set the nodes  */
   else
   {
-   ptr_head = new Node(NULL,ptr_head,num);
+   ptr_head = new Node(NULL,ptr_head,num, r_ptr);
    ptr_head->m_ptr_next->m_ptr_prev = ptr_head;
   }
 
@@ -267,7 +268,7 @@ Out: none
 
 */
 
-void List::insert(double num)
+void List::insert(Resistor* r_ptr, double num)
 {
 
 /*------ FRONT INSERTION: EMPTY LIST -----*/
@@ -276,7 +277,7 @@ void List::insert(double num)
 
   if(ptr_head == NULL)
   {
-    ptr_head = new Node(ptr_head,ptr_head,num);
+    ptr_head = new Node(ptr_head,ptr_head,num, r_ptr);
     ptr_tmp = ptr_head;
     return;
   }
@@ -285,7 +286,7 @@ void List::insert(double num)
 
   if(num < ptr_head->m_num)
   {
-    ptr_head = new Node(NULL,ptr_head,num);
+    ptr_head = new Node(NULL,ptr_head,num, r_ptr);
     ptr_head->m_ptr_next->m_ptr_prev = ptr_head;
     ptr_tmp = ptr_head;
     return;
@@ -298,13 +299,13 @@ void List::insert(double num)
 
     if(ptr_head->m_ptr_next == NULL)
     {
-      ptr_head->m_ptr_next = new Node(ptr_head,ptr_head->m_ptr_next,num);
+      ptr_head->m_ptr_next = new Node(ptr_head,ptr_head->m_ptr_next,num, r_ptr);
       ptr_head->m_ptr_next->m_ptr_prev = ptr_head;
       return;
     }
     else
     {
-      ptr_head->m_ptr_next = new Node(ptr_head,ptr_head->m_ptr_next,num);
+      ptr_head->m_ptr_next = new Node(ptr_head,ptr_head->m_ptr_next,num,r_ptr);
       ptr_head->m_ptr_next->m_ptr_next->m_ptr_prev = ptr_head -> m_ptr_next;
       return;
     }
@@ -315,7 +316,7 @@ void List::insert(double num)
 
   if(ptr_head->m_ptr_next == NULL && num > ptr_head->m_num)
   {
-    ptr_head->m_ptr_next = new Node(ptr_head,ptr_head->m_ptr_next,num);
+    ptr_head->m_ptr_next = new Node(ptr_head,ptr_head->m_ptr_next,num, r_ptr);
     return;
   }
 
@@ -335,11 +336,11 @@ void List::insert(double num)
 
       if(ptr_tmp->m_ptr_next == NULL)
       {
-        ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num);
+        ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num, r_ptr);
         return;
       }
 
-      ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num);
+      ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num, r_ptr);
       ptr_tmp->m_ptr_next->m_ptr_next->m_ptr_prev = ptr_tmp->m_ptr_next;
       return;
     }
@@ -349,7 +350,7 @@ void List::insert(double num)
 
     if(num > ptr_tmp->m_num)
     {
-      ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num);
+      ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num, r_ptr);
       return;
     }
 
@@ -367,7 +368,7 @@ void List::insert(double num)
 
     if(num == ptr_tmp->m_num)
     {
-      ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num);
+      ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num, r_ptr);
       ptr_tmp->m_ptr_next->m_ptr_next->m_ptr_prev = ptr_tmp->m_ptr_next;
       return;
     }
@@ -376,7 +377,7 @@ void List::insert(double num)
 
     if(num > ptr_tmp->m_num)
     {
-      ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num);
+      ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num, r_ptr);
       ptr_tmp=ptr_tmp->m_ptr_next;
       ptr_tmp->m_ptr_next->m_ptr_prev = ptr_tmp;
       return;

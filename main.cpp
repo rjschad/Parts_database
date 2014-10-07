@@ -27,178 +27,23 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <stdlib.h>
 #include <assert.h>
+#include "var.h"
+#include "Part.h"
 #include "list.h"
-//#include "var.h"
-#include <fstream>
+#include "functions.h"
 
 #define TRUE 1
 #define FALSE 0
 
 using namespace std;
 
-/* instantiate objects GLOBAL */
-List list;
+/* GLOBAL DECLARTION */
+ List list;
+ Resistor* rptr;
 
-
-////////////////////////////////////////////////////////////
-/*
-
-Desc: Parse the user input to distinguish the true value of input: 125k --> 125000
-In: None
-Out: double to indicate the true number representation
-
-*/
-
-double parser(void)
-{
-
-  char buffer[5];
-  char num_buf[20];
-  char let_buf[20];
-  char* c; 
-  int num_trck = 0;
-  int let_trck = 0;
-  int k = 0;
-
-  cout<< "Enter Resistor Value: " << endl;
-  cin >> buffer;
-  c = buffer; 
-
-/*  BEGIN PARSING STRING  */
-
-do
-{
-	 if( *c == '.' || *c >= '0' && *c <= '9')
-	{
-          num_buf[num_trck] = *c;
-          num_trck++;
-	  c++;
-	}
-	 else // assuming there is only 1 letter appending entry
-	{ 
-           let_buf[let_trck] = *c;
-           let_trck++;
-	   break;   
-	}
-
-}while(c);
-
-
-num_buf[num_trck] = '\n';
-let_buf[let_trck] = '\n';
-
- c = num_buf;
-
-// CONVERT NUM_BUFFER TO TYPE DOUBLE
-
-double value = 0.0;
-value = atof(num_buf);
-
-
-c=let_buf; //reset ptr
-
-// ENSURE CASE SENSITIVE INPUTS
-
-if(*c ==  'k' || *c == 'K')
-{
-  value =  value*1000;
-  //cout<< "final value: " << value << endl;
-}
-else if(*c == 'm' || *c == 'M')
-{
-  value = value*1000000;
-  //cout<< "final value: " << value << endl;
-}
-else 
-{ 
-value = value;
-//cout<< "final value: " << value << endl;
-}
-
- return value;
-}
-
-////////////////////////////////////////////////////////////
-/*
-
-Desc: User display and input
-In: None
-Out: integer to indicate user choice value
-
-*/
-
-int Display(void)
-{
-  int choice = 0;
-  
-  cout<<"TEKPEA PARTS DATABASE" << endl;
-  cout<<"----------------------" << endl;
-  cout<<"1) Add Front" << endl; 
-  cout<<"2) Add Back" << endl; 
-  cout<<"3) Count" << endl;
-  cout<<"4) Empty" << endl; 
-  cout<<"5) Remove Front" << endl;
-  cout<<"6) Remove Back" << endl;
-  cout<<"7) Insert" << endl;
-  cout<<"8) Print" << endl;
-  cout<<"9) Quit" << endl;
-  cout<<"10) Search" << endl << endl;
-
-  cin>> choice;
-  return choice;
-}
-
-////////////////////////////////////////////////////////////
-/*
-
-Desc: Pause system
-In: None
-Out: none
-
-*/
-
-void user_choice()
-{
-  cout<<"Press Enter to continue" << endl;
-  cin.ignore();
-  cin.get();
-}
-
-////////////////////////////////////////////////////////////
-/*
-
-Desc: Clear console screen
-In: None
-Out: none
-
-*/
-
-void clr_scrn(void)
-{
- cout<< string(100, '\n');
-}
-
-////////////////////////////////////////////////////////////
-/*
-
-Desc: Check if List is empty
-In: None
-Out: none
-
-*/
-
-void empty()
-{
-
-   cout<< "Empty List ?" <<endl;
-
-   if(list.empty() == true)
-     cout<<"T"<<endl;
-   else
-     cout<<"F"<<endl;
-}
 
 ////////////////////////////////////////////////////////////
 /*
@@ -211,24 +56,27 @@ Out: int 1 = success
 
 int main( int argc, char* argv[])
 {
-
+   double r_val = 1000;
+   int    r_quant = 2;
+   rptr = new Resistor(r_val,r_quant); // defined in var.h as Extern pointer to resistor object
+ 
    list.track = 0; // track number of items in list
    int number=0;
    int num_add =0;
    double in_num = 0.00; 
 
-/* CREATE I/O OBJECTS USED FOR COPYING */
-fstream ifile("output1.txt", ios::in);
-fstream ofile("input1.txt", ios::out); 
+	/* CREATE I/O OBJECTS USED FOR COPYING */
+	fstream ifile("output1.txt", ios::in);
+	fstream ofile("input1.txt", ios::out); 
 
-/* COPY OUTPUT FILE TO INPUT FILE */
-ofile << ifile.rdbuf();
-ofile.close();
-ifile.close();
+	/* COPY OUTPUT FILE TO INPUT FILE */
+	ofile << ifile.rdbuf();
+	ofile.close();
+	ifile.close();
 
-/* CREATE NEW I/O OBJECTS */
-fstream ifile1("input1.txt", ios::in);
-fstream ofile1("output1.txt", ios::out); 
+	/* CREATE NEW I/O OBJECTS */
+	fstream ifile1("input1.txt", ios::in);
+	fstream ofile1("output1.txt", ios::out); 
 
 /* LOAD INPUT FILES INTO LIST */
 //------------------------------------------
@@ -236,7 +84,7 @@ fstream ofile1("output1.txt", ios::out);
 
    while(ifile1)
     {
-      list.insert(in_num);
+      list.insert(rptr,in_num);
       ifile1 >> in_num;
     }
 //------------------------------------------
@@ -250,7 +98,7 @@ fstream ofile1("output1.txt", ios::out);
        clr_scrn();
        cout<< "Add number to front: " << endl;
        cin>> num_add;
-       list.addfront(num_add);
+       list.addfront(rptr,num_add);
        list.track++; // increment track
        clr_scrn();
        list.print();
@@ -262,7 +110,7 @@ fstream ofile1("output1.txt", ios::out);
        clr_scrn();
        cout<< "Add number to back: " << endl;
        cin>> num_add;
-       list.addback(num_add);
+       list.addback(rptr,num_add);
        list.track++;
        clr_scrn();
        list.print();
@@ -310,13 +158,7 @@ fstream ofile1("output1.txt", ios::out);
        break;
 
      case 7: // INSERT
-       clr_scrn();
-       list.track++;
-       list.insert(parser());
-       clr_scrn();
-       list.print();
-       user_choice();
-       clr_scrn();
+       insert_case();
        break;
 
      case 8: // PRINT
@@ -333,10 +175,7 @@ fstream ofile1("output1.txt", ios::out);
        return 0; // return sucessfull
 
      case 10: // SEARCH
-       clr_scrn();
-       list.lookup(parser());
-       user_choice();
-       clr_scrn();
+       search_case();
        break;
 
      default:
