@@ -414,6 +414,7 @@ void List::print()
   {
      //ofile << ptr_print -> m_num << endl; // write to output file
      cout<< ptr_print->m_num << endl;
+     cout<< "Dereferencing Resistor pointer: " << ptr_print -> m_res_ptr-> get_value() << endl;
      ptr_print = ptr_print->m_ptr_next;
      tracker++;
 
@@ -450,9 +451,7 @@ Out: none
 
 */
 
-// remember to comment out the ofstream object in beginning and place in main.cpp
-//void List:: pushto_out(void)
-void List:: pushto_out(fstream& fileout) // pass by reference experiment
+void List:: pushto_out(fstream& fileout) // pass by reference needed for ofstream/ostream
 {
  
   Node* ptr_print = ptr_head;
@@ -460,7 +459,6 @@ void List:: pushto_out(fstream& fileout) // pass by reference experiment
   while(ptr_print != NULL) 
   {
      fileout << ptr_print -> m_num << endl; 
-//     ifile << ptr_print -> m_num << endl; 
      ptr_print = ptr_print->m_ptr_next;
   }
 
