@@ -66,19 +66,29 @@ int main( int argc, char* argv[])
    int number=0;
    int num_add =0;
    double in_num = 0.00; 
+   int in_num_r = 0;
 
 	/* CREATE I/O OBJECTS USED FOR COPYING */
 	fstream ifile("output1.txt", ios::in);
+	fstream ifile2("output2.txt", ios::in);
 	fstream ofile("input1.txt", ios::out); 
+	fstream ofile2("input2.txt", ios::out); 
 
 	/* COPY OUTPUT FILE TO INPUT FILE */
 	ofile << ifile.rdbuf();
+	ofile2 << ifile2.rdbuf();
+
 	ofile.close();
+	ofile2.close();
+
 	ifile.close();
+	ifile2.close();
 
 	/* CREATE NEW I/O OBJECTS */
 	fstream ifile1("input1.txt", ios::in);
+        fstream ifile1_r("input2.txt", ios::in);
 	fstream ofile1("output1.txt", ios::out); 
+	fstream ofile1_r("output2.txt", ios::out); 
 
 /* LOAD INPUT FILES INTO LIST */
 //------------------------------------------
@@ -92,14 +102,15 @@ int main( int argc, char* argv[])
 */
 
 
-/*
    ifile1 >> in_num;
-   while(ifile1)
+   ifile1_r >> in_num_r;
+   while(ifile1 && ifile1_r)
     {
+      rptr = new Resistor(in_num,in_num_r);
       list.insert(rptr,in_num);
       ifile1 >> in_num;
+      ifile1_r >> in_num_r;
     }
-*/
 
 //------------------------------------------
 
@@ -183,7 +194,7 @@ int main( int argc, char* argv[])
        break;
 
      case 9: // QUIT
-       list.pushto_out(ofile1); // write list contents to output file
+       list.pushto_out(ofile1, ofile1_r); // write list contents to output file
        clr_scrn();
        cout<< "Writing to output file.\nQuitting program...\n"<< endl;
        return 0; // return sucessfull

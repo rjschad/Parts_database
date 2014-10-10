@@ -452,14 +452,15 @@ Out: none
 
 */
 
-void List:: pushto_out(fstream& fileout) // pass by reference needed for ofstream/ostream
+void List:: pushto_out(fstream& fileout,fstream& fileout2) // pass by reference needed for ofstream/ostream
 {
  
   Node* ptr_print = ptr_head;
 
   while(ptr_print != NULL) 
   {
-     fileout << ptr_print -> m_num << endl; 
+     fileout << ptr_print -> r_ptr-> get_value() << endl;
+     fileout2 << ptr_print -> r_ptr -> get_quant() << endl;
      ptr_print = ptr_print->m_ptr_next;
   }
 

@@ -38,7 +38,7 @@ class List
     List(); // contructor
    ~List(); // destructor
    
-    void pushto_out(fstream& fileout);       // push list contents to output file
+    void pushto_out(fstream& fileout,fstream& fileout2);       // push list contents to output file
     void lookup(Resistor* r_ptr, double num);  // lookup specific part
     void print();                            // print list
     void insert(Resistor* r_ptr, double num); // insert in order
