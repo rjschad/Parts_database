@@ -59,10 +59,10 @@ class List
          m_ptr_prev = prev; // pointer to next node
          m_ptr_next = next; // pointer to previous node
          m_num = num; // this is getting moved to the Resistor class
-         m_res_ptr = res_ptr;
+         r_ptr = res_ptr;
        }
 
-       Resistor* m_res_ptr;
+       Resistor* r_ptr;
        Node* m_ptr_prev; // previous pointer
        Node* m_ptr_next; // next pointer
        double m_num;        // number stores in node

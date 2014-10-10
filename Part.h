@@ -9,6 +9,7 @@
        Resistor(double, int);// double value, int quantity
        void print();
        double get_value();
+       int get_quant();
 
      private:
        double m_value;

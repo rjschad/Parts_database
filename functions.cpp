@@ -17,11 +17,24 @@ Out: None
 
 void insert_case(void)
 {
+
+   clr_scrn();
+   double r_val = parser();
+   int    r_quant = 0;
+   
+
+   cout<< "Enter Quantity: " << endl;
+   cin>> r_quant;
+   rptr = new Resistor(r_val,r_quant); // this is new allocates over and over
+
+
        clr_scrn();
        list.track++;
-       list.insert(rptr, parser());
+       //list.insert(rptr, parser());
+       list.insert(rptr, r_val);
        clr_scrn();
        list.print();
+       cout<<endl;
        user_choice();
        clr_scrn();
 }

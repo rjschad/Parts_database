@@ -56,10 +56,12 @@ Out: int 1 = success
 
 int main( int argc, char* argv[])
 {
+/*
    double r_val = 1000;
    int    r_quant = 2;
-   rptr = new Resistor(r_val,r_quant); // defined in var.h as Extern pointer to resistor object
- 
+   rptr = new Resistor(r_val,r_quant); 
+*/
+
    list.track = 0; // track number of items in list
    int number=0;
    int num_add =0;
@@ -80,13 +82,25 @@ int main( int argc, char* argv[])
 
 /* LOAD INPUT FILES INTO LIST */
 //------------------------------------------
-   ifile1 >> in_num;
 
+
+/*          
+   PROBLEM:             
+   the problem here has do with the rptr. In the load file, rptr is
+   not loaded only the number. What we need is to laod in new Resistor the values and quanitites
+   and then use the insert as normal.
+*/
+
+
+/*
+   ifile1 >> in_num;
    while(ifile1)
     {
       list.insert(rptr,in_num);
       ifile1 >> in_num;
     }
+*/
+
 //------------------------------------------
 
  do

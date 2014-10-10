@@ -86,22 +86,22 @@ void List::lookup(Resistor* r_ptr, double num)
     //cout<<"ptr: " <<ptr_lookup << endl;
     //cout<<"ptr->m_next: "<< ptr_lookup->m_ptr_next << endl;
    
-   while(num > ptr_lookup->m_num && ptr_lookup->m_ptr_next != NULL)
+   while(num > ptr_lookup->r_ptr->get_value() && ptr_lookup->m_ptr_next != NULL)
      ptr_lookup = ptr_lookup->m_ptr_next;
  
     //cout<< "here2" << endl;
 
-    if(ptr_lookup->m_num == num)
+    if(ptr_lookup->r_ptr->get_value() == num)
       {  
          //cout<< "here3" << endl;
          cout<< "Match found:" << num << endl;
          return;
       }
 
-   while(num < ptr_lookup->m_num && ptr_lookup->m_ptr_prev != NULL)
+   while(num < ptr_lookup->r_ptr->get_value() && ptr_lookup->m_ptr_prev != NULL)
      ptr_lookup = ptr_lookup->m_ptr_prev;
  
-    if(ptr_lookup->m_num == num)
+    if(ptr_lookup->r_ptr->get_value() == num)
       {  
          cout<< "Match found:" << num << endl;
          return;
@@ -284,7 +284,7 @@ void List::insert(Resistor* r_ptr, double num)
 
 /*------ FRONT INSERTION: BEGINNING -----*/
 
-  if(num < ptr_head->m_num)
+  if(num < ptr_head->r_ptr->get_value())
   {
     ptr_head = new Node(NULL,ptr_head,num, r_ptr);
     ptr_head->m_ptr_next->m_ptr_prev = ptr_head;
@@ -294,9 +294,8 @@ void List::insert(Resistor* r_ptr, double num)
 
 /* ----- SAME NUMBER IN FRONT ---- */ 
 
-  if(num == ptr_head->m_num)
+  if(num == ptr_head->r_ptr->get_value())
   {
-
     if(ptr_head->m_ptr_next == NULL)
     {
       ptr_head->m_ptr_next = new Node(ptr_head,ptr_head->m_ptr_next,num, r_ptr);
@@ -314,7 +313,7 @@ void List::insert(Resistor* r_ptr, double num)
 
 /* ----- REAR INSERTION ---- */ 
 
-  if(ptr_head->m_ptr_next == NULL && num > ptr_head->m_num)
+  if(ptr_head->m_ptr_next == NULL && num > ptr_head->r_ptr->get_value())
   {
     ptr_head->m_ptr_next = new Node(ptr_head,ptr_head->m_ptr_next,num, r_ptr);
     return;
@@ -323,13 +322,13 @@ void List::insert(Resistor* r_ptr, double num)
 /* ----- FOWARD TRAVERSE ---- */
 
 
-  while(num > ptr_tmp->m_num && ptr_tmp -> m_ptr_next != NULL)
+  while(num > ptr_tmp->r_ptr->get_value() && ptr_tmp -> m_ptr_next != NULL)
   {
     ptr_tmp=ptr_tmp->m_ptr_next;
   }
 
 
-    if(num == ptr_tmp->m_num)
+    if(num == ptr_tmp->r_ptr->get_value())
     {
 
       /*  check if inserting at end of list */
@@ -348,7 +347,7 @@ void List::insert(Resistor* r_ptr, double num)
 
      /*  user number is greater than present number  */
 
-    if(num > ptr_tmp->m_num)
+    if(num > ptr_tmp->r_ptr->get_value())
     {
       ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num, r_ptr);
       return;
@@ -359,14 +358,14 @@ void List::insert(Resistor* r_ptr, double num)
 
  /*  user number is less than present number  */
 
-  while(num < ptr_tmp->m_num)
+  while(num < ptr_tmp->r_ptr->get_value())
   {
     ptr_tmp=ptr_tmp->m_ptr_prev;
   }
 
    /*  if user number is equal to current number  */
 
-    if(num == ptr_tmp->m_num)
+    if(num == ptr_tmp->r_ptr->get_value())
     {
       ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num, r_ptr);
       ptr_tmp->m_ptr_next->m_ptr_next->m_ptr_prev = ptr_tmp->m_ptr_next;
@@ -375,7 +374,7 @@ void List::insert(Resistor* r_ptr, double num)
 
    /*  if user number is greater to current number  */
 
-    if(num > ptr_tmp->m_num)
+    if(num > ptr_tmp->r_ptr->get_value())
     {
       ptr_tmp->m_ptr_next = new Node(ptr_tmp,ptr_tmp->m_ptr_next,num, r_ptr);
       ptr_tmp=ptr_tmp->m_ptr_next;
@@ -413,8 +412,10 @@ void List::print()
   while(ptr_print != NULL)
   {
      //ofile << ptr_print -> m_num << endl; // write to output file
-     cout<< ptr_print->m_num << endl;
-     cout<< "Dereferencing Resistor pointer: " << ptr_print -> m_res_ptr-> get_value() << endl;
+//     cout<< ptr_print->r_ptr->get_value()) << endl;
+     cout<< "Resistor value (ohms): " << ptr_print -> r_ptr-> get_value();
+     cout<<"\t";
+     cout<< "Quantity: " << ptr_print->r_ptr-> get_quant() << endl;
      ptr_print = ptr_print->m_ptr_next;
      tracker++;
 

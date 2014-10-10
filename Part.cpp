@@ -23,3 +23,9 @@ double Resistor::get_value()
   double value = m_value; 
   return value;
 }
+
+int Resistor::get_quant()
+{
+  double quant = m_quant;
+  return quant;
+}
