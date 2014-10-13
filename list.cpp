@@ -12,16 +12,15 @@
  *
  * =====================================================================================
  */
+
 #include <string>
+#include <stdio.h>
 #include "list.h"
 #include "Part.h"
-//#include "var.h"
 #include <fstream>
 #include <iostream>
 
 using namespace std;
-
-
 
 ////////////////////////////////////////////////////////////
 /*
@@ -65,7 +64,7 @@ List::~List()
 ////////////////////////////////////////////////////////////
 /*
 
-Desc: lookup specific part
+Desc: lookup specific part by value
 In: number (double)
 Out: none
 
@@ -74,6 +73,7 @@ Out: none
 
 void List::lookup(Resistor* r_ptr, double num)
 {
+   int tracker = 0;
    ptr_lookup = ptr_head;
    
    if(ptr_head == NULL)
@@ -94,7 +94,16 @@ void List::lookup(Resistor* r_ptr, double num)
     if(ptr_lookup->r_ptr->get_value() == num)
       {  
          //cout<< "here3" << endl;
-         cout<< "Match found:" << num << endl;
+         tracker++;
+         cout<< endl;
+         cout<< tracker << " match found:" << num << endl;
+         cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
+         cout<<"\t";
+         cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
+         cout<<"\t";
+         cout<< "Case: " << ptr_lookup->r_ptr->get_case();
+         cout<<"\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno() << endl;
          return;
       }
 
@@ -103,14 +112,93 @@ void List::lookup(Resistor* r_ptr, double num)
  
     if(ptr_lookup->r_ptr->get_value() == num)
       {  
-         cout<< "Match found:" << num << endl;
+         cout<< endl;
+         tracker++;
+         cout<< tracker << " match found:" << num << endl << endl;
+         cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
+         cout<<"\t";
+         cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
+         cout<<"\t";
+         cout<< "Case: " << ptr_lookup->r_ptr->get_case();
+         cout<<"\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno() << endl;
          return;
       }
 
-    cout<<"Entry not found" << endl;
-
+    cout<< "Not found" << endl;
 }
 
+////////////////////////////////////////////////////////////
+/*
+
+Desc: lookup specific part by case
+In: number (double)
+Out: none
+
+*/
+
+
+void List::lookup_bycase(string casetype)
+{
+   int tracker = 0;
+   ptr_lookup = ptr_head;
+    
+   if(ptr_head == NULL)
+     {
+      cout<< "No match found beacuse list is empty." << endl;
+      return; 
+     }
+
+   if(ptr_lookup->r_ptr->get_case() == casetype)
+      tracker++;
+     
+
+   while(ptr_lookup->m_ptr_next != NULL)
+   {
+     ptr_lookup = ptr_lookup->m_ptr_next;
+ 
+     if(ptr_lookup->r_ptr->get_case() == casetype)
+         tracker++;
+    }
+
+        if(tracker == 1)
+         cout<< tracker << " match found: " << casetype << endl;
+        if(tracker > 1)
+         cout<< tracker << " matches found: " << casetype << endl;
+
+   ptr_lookup = ptr_head; // reset ptr
+   
+  if(ptr_lookup->r_ptr->get_case() == casetype)
+        {  
+         cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
+         cout<<"\t";
+         cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
+         cout<<"\t";
+         cout<< "Case: " << ptr_lookup->r_ptr->get_case();
+         cout<<"\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno() << endl;
+        }
+     
+
+   while(ptr_lookup->m_ptr_next != NULL)
+   {
+     ptr_lookup = ptr_lookup->m_ptr_next;
+ 
+     if(ptr_lookup->r_ptr->get_case() == casetype)
+        {  
+         cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
+         cout<<"\t";
+         cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
+         cout<<"\t";
+         cout<< "Case: " << ptr_lookup->r_ptr->get_case();
+         cout<<"\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno() << endl;
+        }
+     }
+
+ if(tracker == 0)
+    cout<< "None found" << endl;
+}
 
 ////////////////////////////////////////////////////////////
 /*
@@ -407,7 +495,7 @@ void List::print()
     return;
   }
 
-   cout<<"\t\t ------ Resistor Database -------" << endl << endl;
+   cout<<"\t\t\t ------ Resistor Database -------" << endl << endl;
 
   /*  print and traverse list  */
 
@@ -417,7 +505,9 @@ void List::print()
      cout<<"\t";
      cout<< "Quantity: " << ptr_print->r_ptr-> get_quant();
      cout<<"\t";
-     cout<< "Case: " << ptr_print->r_ptr->get_case() << endl;
+     cout<< "Case: " << ptr_print->r_ptr->get_case();
+     cout<<"\t";
+     cout<< "Part No: " << ptr_print->r_ptr->get_partno() << endl;
 
      ptr_print = ptr_print->m_ptr_next;
      tracker++;
@@ -467,7 +557,9 @@ void List:: pushto_out(fstream& fileout4)
      fileout4<<"\t";
      fileout4 << ptr_print->r_ptr-> get_quant();
      fileout4<<"\t";
-     fileout4 << ptr_print->r_ptr->get_case() << endl;
+     fileout4 << ptr_print->r_ptr->get_case();
+     fileout4<<"\t";
+     fileout4 << ptr_print->r_ptr->get_partno() << endl;
 
      ptr_print = ptr_print->m_ptr_next;
   }

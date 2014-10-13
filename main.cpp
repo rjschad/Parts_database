@@ -63,20 +63,22 @@ int main( int argc, char* argv[])
    list.track = 0; 
    int number=0;
    int num_add =0;
+   int s_choice = 0;
 
    double in_num = 0.00; 
    int in_num_r = 0;
    string in_string;
+   string case_search;
 
 //-----------------------------------------------------------------
 load_file(); 
 
 fstream ofile1_init("output4.txt", ios::out); 
 
-
- do
+do
  {
   clr_scrn(); //clear screen initally
+
    switch(Display()) // act on user input
    {
      case 1: // ADD FRONT
@@ -161,7 +163,22 @@ fstream ofile1_init("output4.txt", ios::out);
        return 0; // return sucessfull
 
      case 10: // SEARCH
-       search_case();
+       clr_scrn();
+       cout<<"Search by: 1) Value " << endl;
+       cout<<"           2) Case " << endl;
+       cout<<"           3) Quantity " << endl;
+       cin>> s_choice;
+       if(s_choice == 1)
+         search_case();
+       if(s_choice == 2)
+         {
+          cout<<"Enter Case type: ";
+          cin>> case_search;
+          clr_scrn();
+          list.lookup_bycase(case_search);
+          user_choice();
+          clr_scrn();
+         }
        break;
 
      default:
@@ -174,7 +191,6 @@ fstream ofile1_init("output4.txt", ios::out);
 
 
 } while(1);
-
 
    cout<<endl;
    cout << "end of program !!! \n";

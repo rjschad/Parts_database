@@ -40,15 +40,16 @@ class List
    ~List(); // destructor
    
     void pushto_out(fstream& filoeout4);
-    void lookup(Resistor* r_ptr, double num);  // lookup specific part
-    void print();                            // print list
+    void lookup(Resistor* r_ptr, double num); // lookup specific part by value
+    void lookup_bycase(string casetype); // lookup specific part by case
+    void print();                             // print list
     void insert(Resistor* r_ptr, double num); // insert in order
-    bool empty();                            // check if list is empty
+    bool empty();                             // check if list is empty
     void addfront(Resistor* r_ptr, int num);  // add to front of list
     void addback(Resistor* r_ptr, int num);   // add to back of list
-    void remove_front(void);                 // remove from front of list
-    void remove_back(void);                  // remove from back of list
-    int  track;                              // track number of elements in list
+    void remove_front(void);                  // remove from front of list
+    void remove_back(void);                   // remove from back of list
+    int  track;                               // track number of elements in list
 
   private:   
 

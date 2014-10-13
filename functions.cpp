@@ -17,7 +17,7 @@ using namespace std;
 ////////////////////////////////////////////////////////////
 /*
 
-Desc: contains all the functions for the insert case
+Desc: contains all the functions for the loading the input file
 In: None
 Out: None
 
@@ -27,6 +27,7 @@ void load_file()
 {
 
         string casetype;
+        string parttype;
         string getinfo;
         string str;
         int track = 1;
@@ -58,9 +59,11 @@ void load_file()
           if(track == 2)
              quant = atoi(cstr);
           if(track == 3)
-            {
              casetype = cstr;
-             rptr = new Resistor(value,quant,casetype);
+          if(track == 4)
+            {
+             parttype = cstr;
+             rptr = new Resistor(value,quant,casetype,parttype);
              list.insert(rptr,value);
              track = 0; // reset
             }
@@ -73,21 +76,33 @@ void load_file()
        }
        delete[] cstr;
 }
+////////////////////////////////////////////////////////////
+/*
+
+Desc: contains all the functions for the insert case
+In: None
+Out: None
+
+*/
 
 void insert_case(void)
 {
 
    clr_scrn();
    string r_case;
+   string r_part;
    double r_val = parser();
    int    r_quant = 0;
    
 
-   cout<< "Enter Quantity: " << endl;
+   cout<< "Enter Quantity: ";
    cin>> r_quant;
-   cout<< "Enter Case Type: " << endl;
+   cout<< "Enter Case Type: ";
    cin >> r_case;
-   rptr = new Resistor(r_val,r_quant, r_case);
+   cout<< "Enter Part No: ";
+   cin>> r_part;
+
+   rptr = new Resistor(r_val,r_quant, r_case, r_part);
 
 
        clr_scrn();
@@ -136,7 +151,7 @@ double parser(void)
   int let_trck = 0;
   int k = 0;
 
-  cout<< "Enter Resistor Value: " << endl;
+  cout<< "Enter Resistor Value: ";
   cin >> buffer;
   c = buffer; 
 
@@ -209,6 +224,8 @@ int Display(void)
   int choice = 0;
   
   cout<<"\t\t\t\tTEKPEA PARTS DATABASE" << endl;
+  cout<<"\t\t\t\t----------------------" << endl;
+  cout<<"\t\t\t\t    MENU OPTIONS" << endl;
   cout<<"\t\t\t\t----------------------" << endl;
   cout<<"\t\t\t\t1) Add Front" << endl; 
   cout<<"\t\t\t\t2) Add Back" << endl; 
