@@ -12,7 +12,7 @@
  *
  * =====================================================================================
  */
-
+#include <string>
 #include "list.h"
 #include "Part.h"
 //#include "var.h"
@@ -407,6 +407,8 @@ void List::print()
     return;
   }
 
+   cout<<"\t\t ------ Search Results -------" << endl << endl;
+
   /*  print and traverse list  */
 
   while(ptr_print != NULL)
@@ -415,7 +417,10 @@ void List::print()
 //     cout<< ptr_print->r_ptr->get_value()) << endl;
      cout<< "Resistor value (ohms): " << ptr_print -> r_ptr-> get_value();
      cout<<"\t";
-     cout<< "Quantity: " << ptr_print->r_ptr-> get_quant() << endl;
+     cout<< "Quantity: " << ptr_print->r_ptr-> get_quant();
+     cout<<"\t";
+     cout<< "Case: " << ptr_print->r_ptr->get_case() << endl;
+
      ptr_print = ptr_print->m_ptr_next;
      tracker++;
 
@@ -452,7 +457,7 @@ Out: none
 
 */
 
-void List:: pushto_out(fstream& fileout,fstream& fileout2) // pass by reference needed for ofstream/ostream
+void List:: pushto_out(fstream& fileout,fstream& fileout2,fstream& fileout3, fstream& fileout4)
 {
  
   Node* ptr_print = ptr_head;
@@ -461,6 +466,16 @@ void List:: pushto_out(fstream& fileout,fstream& fileout2) // pass by reference 
   {
      fileout << ptr_print -> r_ptr-> get_value() << endl;
      fileout2 << ptr_print -> r_ptr -> get_quant() << endl;
+     fileout3 << ptr_print -> r_ptr -> get_case() << endl;
+
+
+     /* fileout4 outputs everything */
+     fileout4 << ptr_print -> r_ptr-> get_value();
+     fileout4<<"\t";
+     fileout4 << ptr_print->r_ptr-> get_quant();
+     fileout4<<"\t";
+     fileout4 << ptr_print->r_ptr->get_case() << endl;
+
      ptr_print = ptr_print->m_ptr_next;
   }
 

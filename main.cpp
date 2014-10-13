@@ -27,9 +27,12 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <fstream>
 #include <stdlib.h>
 #include <assert.h>
+#include <stdio.h>
+#include <sstream>
 #include "var.h"
 #include "Part.h"
 #include "list.h"
@@ -65,52 +68,120 @@ int main( int argc, char* argv[])
    list.track = 0; // track number of items in list
    int number=0;
    int num_add =0;
+
    double in_num = 0.00; 
    int in_num_r = 0;
+   string in_string;
 
+//-----------------------------------------------------------------
+        int track = 1;
+        int flag = 0;
+        double value = 0.00;
+        int quant = 0;
+        string casetype;
+        string getinfo;
+        char buffer[10];
+        string str;
+        char* cstr = new char[str.length()];
+
+	/* Load data into array */
+	fstream ifile_1("output4.txt",ios::in);
+	fstream ifile_2("output4.txt",ios::in); // used for to track # of entries
+
+      while(ifile_2)
+      {
+        ifile_2>> getinfo;
+        flag++;
+      }
+ 
+       int stop = flag -1; // break value
+       flag = 0; // reset flag
+
+       while(ifile_1)
+        {
+          ifile_1>> str;
+          strcpy(cstr, str.c_str()); // cstr contains a cstyle string copr of str
+
+          if(track == 1)
+            {
+             value = atof(cstr);
+            }
+          if(track == 2)
+            {
+             quant = atoi(cstr);
+            }
+          if(track == 3)
+            {
+             casetype = cstr;
+		      rptr = new Resistor(value,quant,casetype);
+		      list.insert(rptr,value);
+             track = 0; // reset
+            }
+
+          track++;
+          flag++;
+
+          if(flag == stop)
+           break;
+       }
+
+
+   
+       delete[] cstr;
+
+//-----------------------------------------------------------------
 	/* CREATE I/O OBJECTS USED FOR COPYING */
 	fstream ifile("output1.txt", ios::in);
 	fstream ifile2("output2.txt", ios::in);
+	fstream ifile3("output3.txt", ios::in);
+
+
 	fstream ofile("input1.txt", ios::out); 
 	fstream ofile2("input2.txt", ios::out); 
+	fstream ofile3("input3.txt", ios::out); 
 
 	/* COPY OUTPUT FILE TO INPUT FILE */
 	ofile << ifile.rdbuf();
 	ofile2 << ifile2.rdbuf();
+	ofile3 << ifile3.rdbuf();
 
+	/* CLOSE THE OUTPUT & INPUT FILES */
 	ofile.close();
 	ofile2.close();
+	ofile3.close();
 
 	ifile.close();
 	ifile2.close();
+	ifile3.close();
 
 	/* CREATE NEW I/O OBJECTS */
 	fstream ifile1("input1.txt", ios::in);
         fstream ifile1_r("input2.txt", ios::in);
+        fstream ifile1_rr("input3.txt", ios::in);
+
+
 	fstream ofile1("output1.txt", ios::out); 
 	fstream ofile1_r("output2.txt", ios::out); 
+	fstream ofile1_rr("output3.txt", ios::out); 
+
+	fstream ofile1_init("output4.txt", ios::out); 
 
 /* LOAD INPUT FILES INTO LIST */
 //------------------------------------------
-
-
-/*          
-   PROBLEM:             
-   the problem here has do with the rptr. In the load file, rptr is
-   not loaded only the number. What we need is to laod in new Resistor the values and quanitites
-   and then use the insert as normal.
-*/
-
-
+/*
    ifile1 >> in_num;
    ifile1_r >> in_num_r;
-   while(ifile1 && ifile1_r)
+   ifile1_rr >> in_string;
+
+   while(ifile1 && ifile1_r && ifile1_rr)
     {
-      rptr = new Resistor(in_num,in_num_r);
+      rptr = new Resistor(in_num,in_num_r,in_string);
       list.insert(rptr,in_num);
       ifile1 >> in_num;
       ifile1_r >> in_num_r;
+      ifile1_rr >> in_string;
     }
+*/
 
 //------------------------------------------
 
@@ -189,12 +260,13 @@ int main( int argc, char* argv[])
      case 8: // PRINT
        clr_scrn();
        list.print();
+       cout<< endl;
        user_choice();
        clr_scrn();
        break;
 
      case 9: // QUIT
-       list.pushto_out(ofile1, ofile1_r); // write list contents to output file
+       list.pushto_out(ofile1, ofile1_r,ofile1_rr, ofile1_init);
        clr_scrn();
        cout<< "Writing to output file.\nQuitting program...\n"<< endl;
        return 0; // return sucessfull

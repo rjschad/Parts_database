@@ -16,6 +16,7 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <string>
 #include <fstream>
 #include <iostream>
 #include <stdlib.h>
@@ -38,7 +39,7 @@ class List
     List(); // contructor
    ~List(); // destructor
    
-    void pushto_out(fstream& fileout,fstream& fileout2);       // push list contents to output file
+    void pushto_out(fstream& fileout,fstream& fileout2,fstream& fileout3, fstream& filoeout4);
     void lookup(Resistor* r_ptr, double num);  // lookup specific part
     void print();                            // print list
     void insert(Resistor* r_ptr, double num); // insert in order

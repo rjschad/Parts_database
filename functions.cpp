@@ -2,6 +2,7 @@
 #include "var.h"
 #include <stdlib.h>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -19,18 +20,20 @@ void insert_case(void)
 {
 
    clr_scrn();
+   string r_case;
    double r_val = parser();
    int    r_quant = 0;
    
 
    cout<< "Enter Quantity: " << endl;
    cin>> r_quant;
-   rptr = new Resistor(r_val,r_quant); // this is new allocates over and over
+   cout<< "Enter Case Type: " << endl;
+   cin >> r_case;
+   rptr = new Resistor(r_val,r_quant, r_case);
 
 
        clr_scrn();
        list.track++;
-       //list.insert(rptr, parser());
        list.insert(rptr, r_val);
        clr_scrn();
        list.print();

@@ -6,8 +6,9 @@ using namespace std;
 
 /*  CONSTRUCTOR  */
 
-Resistor::Resistor(double value, int quant)
+Resistor::Resistor(double value, int quant, string casetype)
 {
+   m_case = casetype;
    m_value = value;
    m_quant = quant;
 }
@@ -28,4 +29,10 @@ int Resistor::get_quant()
 {
   double quant = m_quant;
   return quant;
+}
+
+string Resistor::get_case()
+{
+  string casetype = m_case; 
+  return casetype;
 }
