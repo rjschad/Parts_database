@@ -5,6 +5,7 @@ using namespace std;
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+void load_file();
 void user_choice();
 void clr_scrn(void);
 void empty();

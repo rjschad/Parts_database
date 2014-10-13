@@ -39,7 +39,7 @@ class List
     List(); // contructor
    ~List(); // destructor
    
-    void pushto_out(fstream& fileout,fstream& fileout2,fstream& fileout3, fstream& filoeout4);
+    void pushto_out(fstream& filoeout4);
     void lookup(Resistor* r_ptr, double num);  // lookup specific part
     void print();                            // print list
     void insert(Resistor* r_ptr, double num); // insert in order

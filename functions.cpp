@@ -1,8 +1,15 @@
-#include "functions.h"
-#include "var.h"
-#include <stdlib.h>
 #include <iostream>
 #include <string>
+#include <cstring>
+#include <fstream>
+#include <stdlib.h>
+#include <assert.h>
+#include <stdio.h>
+#include <sstream>
+#include "var.h"
+#include "Part.h"
+#include "list.h"
+#include "functions.h"
 
 using namespace std;
 
@@ -15,6 +22,57 @@ In: None
 Out: None
 
 */
+
+void load_file()
+{
+
+        string casetype;
+        string getinfo;
+        string str;
+        int track = 1;
+        int flag = 0;
+        double value = 0.00;
+        int quant = 0;
+        char* cstr = new char[str.length()];
+
+	/* Load data into array */
+	fstream ifile_1("output4.txt",ios::in);
+	fstream ifile_2("output4.txt",ios::in); // used for to track # of entries
+
+      while(ifile_2)
+      {
+        ifile_2>> getinfo;
+        flag++;
+      }
+ 
+       int stop = (flag -1); // break value
+       flag = 0; // reset flag
+
+       while(ifile_1)
+        {
+          ifile_1>> str;
+          strcpy(cstr, str.c_str()); // cstr contains a cstyle string copr of str
+
+          if(track == 1)
+             value = atof(cstr);
+          if(track == 2)
+             quant = atoi(cstr);
+          if(track == 3)
+            {
+             casetype = cstr;
+             rptr = new Resistor(value,quant,casetype);
+             list.insert(rptr,value);
+             track = 0; // reset
+            }
+
+          track++;
+          flag++;
+
+          if(flag == stop)
+           break;
+       }
+       delete[] cstr;
+}
 
 void insert_case(void)
 {
@@ -150,18 +208,18 @@ int Display(void)
 {
   int choice = 0;
   
-  cout<<"TEKPEA PARTS DATABASE" << endl;
-  cout<<"----------------------" << endl;
-  cout<<"1) Add Front" << endl; 
-  cout<<"2) Add Back" << endl; 
-  cout<<"3) Count" << endl;
-  cout<<"4) Empty" << endl; 
-  cout<<"5) Remove Front" << endl;
-  cout<<"6) Remove Back" << endl;
-  cout<<"7) Insert" << endl;
-  cout<<"8) Print" << endl;
-  cout<<"9) Quit" << endl;
-  cout<<"10) Search" << endl << endl;
+  cout<<"\t\t\t\tTEKPEA PARTS DATABASE" << endl;
+  cout<<"\t\t\t\t----------------------" << endl;
+  cout<<"\t\t\t\t1) Add Front" << endl; 
+  cout<<"\t\t\t\t2) Add Back" << endl; 
+  cout<<"\t\t\t\t3) Count" << endl;
+  cout<<"\t\t\t\t4) Empty" << endl; 
+  cout<<"\t\t\t\t5) Remove Front" << endl;
+  cout<<"\t\t\t\t6) Remove Back" << endl;
+  cout<<"\t\t\t\t7) Insert" << endl;
+  cout<<"\t\t\t\t8) Print" << endl;
+  cout<<"\t\t\t\t9) Quit" << endl;
+  cout<<"\t\t\t\t10) Search" << endl << endl;
 
   cin>> choice;
   return choice;
