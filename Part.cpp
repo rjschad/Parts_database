@@ -6,12 +6,15 @@ using namespace std;
 
 /*  CONSTRUCTOR  */
 
-Resistor::Resistor(double value, int quant, string casetype, string partno)
+Resistor::Resistor(double value, int quant, string casetype, string partno, string smd , double lev, string power)
 {
    m_case = casetype;
    m_value = value;
    m_quant = quant;
    m_partno = partno;
+   m_smd = smd;
+   m_lev = lev;
+   m_power = power;
 }
 
 void Resistor::print()
@@ -42,4 +45,22 @@ string Resistor::get_partno()
 {
   string partno = m_partno;
   return partno;
+}
+ 
+string Resistor::get_smd()
+{
+  string smd = m_smd;
+  return smd;
+}
+
+double Resistor::get_lev()
+{
+  double lev = m_lev;
+  return lev;
+}
+
+string Resistor::get_power()
+{
+  string power = m_power;
+  return power;
 }

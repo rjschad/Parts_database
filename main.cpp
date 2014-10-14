@@ -64,11 +64,15 @@ int main( int argc, char* argv[])
    int number=0;
    int num_add =0;
    int s_choice = 0;
+   int c_choice = 0;
 
    double in_num = 0.00; 
    int in_num_r = 0;
    string in_string;
    string case_search;
+   string case1 =  "0402";
+   string case2 =  "0603";
+   string case3 =  "axial";
 
 //-----------------------------------------------------------------
 load_file(); 
@@ -164,16 +168,33 @@ do
 
      case 10: // SEARCH
        clr_scrn();
-       cout<<"Search by: 1) Value " << endl;
-       cout<<"           2) Case " << endl;
-       cout<<"           3) Quantity " << endl;
+       cout<<"Search by: (1) Value  (2) Case  (3) Quantity  -->  ";
        cin>> s_choice;
        if(s_choice == 1)
          search_case();
        if(s_choice == 2)
          {
-          cout<<"Enter Case type: ";
-          cin>> case_search;
+          cout<< "Enter Case Type: ";
+          cout<< "(1) 0402  (2) 0603  (3) axial  -->  ";
+          cin >> c_choice;
+
+        while(c_choice >= 0)
+         {
+          if(c_choice == 1)
+            { case_search = case1;break;}
+          if(c_choice == 2)
+             {case_search = case2;break;}
+          if(c_choice == 3)
+             {case_search = case3;break;}
+          if(c_choice < 1 || c_choice >3)
+            { 
+             cout<<"Invalid chocie!" <<endl;
+             cout<< "Enter Case Type: ";
+             cout<< "(1) 0402  (2) 0603  (3) axial  -->  ";
+             cin >> c_choice;
+            }
+          }          
+
           clr_scrn();
           list.lookup_bycase(case_search);
           user_choice();

@@ -103,7 +103,13 @@ void List::lookup(Resistor* r_ptr, double num)
          cout<<"\t";
          cout<< "Case: " << ptr_lookup->r_ptr->get_case();
          cout<<"\t";
-         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno() << endl;
+         cout<< "Pwr(watts): " << ptr_lookup->r_ptr->get_power();
+         cout<<"\t\t";
+         cout<< "Descr: " << ptr_lookup->r_ptr->get_smd();
+         cout<<"\t\t";
+         cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
+         cout<<"\t\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
          return;
       }
 
@@ -121,7 +127,13 @@ void List::lookup(Resistor* r_ptr, double num)
          cout<<"\t";
          cout<< "Case: " << ptr_lookup->r_ptr->get_case();
          cout<<"\t";
-         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno() << endl;
+         cout<< "Pwr(watts): " << ptr_lookup->r_ptr->get_power();
+         cout<<"\t\t";
+         cout<< "Descr: " << ptr_lookup->r_ptr->get_smd();
+         cout<<"\t\t";
+         cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
+         cout<<"\t\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
          return;
       }
 
@@ -176,7 +188,13 @@ void List::lookup_bycase(string casetype)
          cout<<"\t";
          cout<< "Case: " << ptr_lookup->r_ptr->get_case();
          cout<<"\t";
-         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno() << endl;
+         cout<< "Pwr(watts): " << ptr_lookup->r_ptr->get_power();
+         cout<<"\t\t";
+         cout<< "Descr: " << ptr_lookup->r_ptr->get_smd();
+         cout<<"\t\t";
+         cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
+         cout<<"\t\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<< endl;
         }
      
 
@@ -192,7 +210,13 @@ void List::lookup_bycase(string casetype)
          cout<<"\t";
          cout<< "Case: " << ptr_lookup->r_ptr->get_case();
          cout<<"\t";
-         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno() << endl;
+         cout<< "Pwr(watts): " << ptr_lookup->r_ptr->get_power();
+         cout<<"\t\t";
+         cout<< "Descr: " << ptr_lookup->r_ptr->get_smd();
+         cout<<"\t\t";
+         cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
+         cout<<"\t\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
         }
      }
 
@@ -495,7 +519,7 @@ void List::print()
     return;
   }
 
-   cout<<"\t\t\t ------ Resistor Database -------" << endl << endl;
+   cout<<"\t\t\t\t\t\t\t\t\t ------ Resistor Database -------" << endl << endl;
 
   /*  print and traverse list  */
 
@@ -507,7 +531,13 @@ void List::print()
      cout<<"\t";
      cout<< "Case: " << ptr_print->r_ptr->get_case();
      cout<<"\t";
-     cout<< "Part No: " << ptr_print->r_ptr->get_partno() << endl;
+     cout<< "Pwr(watts): " << ptr_print->r_ptr->get_power();
+     cout<<"\t\t";
+     cout<< "Descr: " << ptr_print->r_ptr->get_smd();
+     cout<<"\t";
+     cout<< "Lim Volt: " << ptr_print->r_ptr->get_lev();
+     cout<<"\t\t";
+     cout<< "Part No: " << ptr_print->r_ptr->get_partno()<<endl;
 
      ptr_print = ptr_print->m_ptr_next;
      tracker++;
@@ -559,7 +589,13 @@ void List:: pushto_out(fstream& fileout4)
      fileout4<<"\t";
      fileout4 << ptr_print->r_ptr->get_case();
      fileout4<<"\t";
-     fileout4 << ptr_print->r_ptr->get_partno() << endl;
+     fileout4 << ptr_print->r_ptr->get_partno();
+     fileout4<<"\t";
+     fileout4 << ptr_print->r_ptr->get_smd();
+     fileout4<<"\t";
+     fileout4 << ptr_print->r_ptr->get_lev() << endl;
+     fileout4<<"\t";
+     fileout4 << ptr_print->r_ptr->get_power() << endl;
 
      ptr_print = ptr_print->m_ptr_next;
   }

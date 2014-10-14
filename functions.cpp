@@ -29,10 +29,13 @@ void load_file()
         string casetype;
         string parttype;
         string getinfo;
+        string pwr;
         string str;
+        string smd;
         int track = 1;
         int flag = 0;
         double value = 0.00;
+        double lim_volt = 0.00;
         int quant = 0;
         char* cstr = new char[str.length()];
 
@@ -61,9 +64,15 @@ void load_file()
           if(track == 3)
              casetype = cstr;
           if(track == 4)
-            {
              parttype = cstr;
-             rptr = new Resistor(value,quant,casetype,parttype);
+          if(track == 5)
+             smd = cstr;
+          if(track == 6)
+             lim_volt = atof(cstr);
+          if(track == 7)
+            {
+             pwr = cstr;
+             rptr = new Resistor(value,quant,casetype,parttype,smd,lim_volt,pwr);
              list.insert(rptr,value);
              track = 0; // reset
             }
@@ -91,18 +100,89 @@ void insert_case(void)
    clr_scrn();
    string r_case;
    string r_part;
+   string r_smd;
+   string r_power;
    double r_val = parser();
+   double r_limvolt = 0.00;
    int    r_quant = 0;
+
+   string case1 = "0402";
+   string case2 = "0603";
+   string case3 = "axial";
+   string case4 = "surface_mount";
+   string case5 = "through_hole";
+   int case_choice = 0;
+   int desc_choice = 0;
    
 
    cout<< "Enter Quantity: ";
    cin>> r_quant;
+
    cout<< "Enter Case Type: ";
-   cin >> r_case;
+   cout<< "(1)0402  (2)0603  (3)axial  -->  ";
+   cin >> case_choice;
+
+  while(case_choice >= 0)
+ {
+    if(case_choice == 1 )
+    {
+      r_case = case1;
+      break;
+    }
+    if(case_choice == 2 )
+    {
+      r_case = case2;
+      break;
+    }
+    if(case_choice == 3 )
+    {
+      r_case = case3;
+      break;
+     }
+    if((case_choice < 1) || (case_choice > 3))
+    {
+     cout<<"Inavalid choice!" << endl;
+     cout<< "Enter Case Type: ";
+     cout<< "(1) 0402  (2) 0603  (3) axial  -->  ";
+     cin >> case_choice;
+    }
+}
+ 
    cout<< "Enter Part No: ";
    cin>> r_part;
 
-   rptr = new Resistor(r_val,r_quant, r_case, r_part);
+   cout<< "Enter Description: ";
+   cout<< "(1) Surface_Mount  (2) Through_Hole  -->  ";
+   cin >> desc_choice;
+   
+  while(desc_choice >= 0)
+   {
+      if(desc_choice == 1)
+       {
+        r_smd = case4;
+        break;
+       }
+      if(desc_choice == 2)
+       {
+        r_smd = case5;
+        break;
+       }
+      if(desc_choice < 1 || desc_choice > 2)
+       {
+        cout<<"Inavalid choice!" << endl;
+        cout<< "Enter Description: ";
+        cout<< "(1) Surface_Mount  (2) Through_Hole  -->  ";
+        cin >> desc_choice;
+       }
+    }
+
+
+   cout<< "Enter Limiting Voltage: ";
+   cin >> r_limvolt;
+   cout<< "Enter Power Rating: ";
+   cin >> r_power;
+
+   rptr = new Resistor(r_val,r_quant, r_case, r_part, r_smd, r_limvolt, r_power);
 
 
        clr_scrn();
@@ -223,20 +303,20 @@ int Display(void)
 {
   int choice = 0;
   
-  cout<<"\t\t\t\tTEKPEA PARTS DATABASE" << endl;
-  cout<<"\t\t\t\t----------------------" << endl;
-  cout<<"\t\t\t\t    MENU OPTIONS" << endl;
-  cout<<"\t\t\t\t----------------------" << endl;
-  cout<<"\t\t\t\t1) Add Front" << endl; 
-  cout<<"\t\t\t\t2) Add Back" << endl; 
-  cout<<"\t\t\t\t3) Count" << endl;
-  cout<<"\t\t\t\t4) Empty" << endl; 
-  cout<<"\t\t\t\t5) Remove Front" << endl;
-  cout<<"\t\t\t\t6) Remove Back" << endl;
-  cout<<"\t\t\t\t7) Insert" << endl;
-  cout<<"\t\t\t\t8) Print" << endl;
-  cout<<"\t\t\t\t9) Quit" << endl;
-  cout<<"\t\t\t\t10) Search" << endl << endl;
+  cout<<"\t\t\t\t\tTEKPEA PARTS DATABASE" << endl;
+  cout<<"\t\t\t\t\t----------------------" << endl;
+  cout<<"\t\t\t\t\t    MENU OPTIONS" << endl;
+  cout<<"\t\t\t\t\t----------------------" << endl;
+  cout<<"\t\t\t\t\t1) Add Front" << endl; 
+  cout<<"\t\t\t\t\t2) Add Back" << endl; 
+  cout<<"\t\t\t\t\t3) Count" << endl;
+  cout<<"\t\t\t\t\t4) Empty" << endl; 
+  cout<<"\t\t\t\t\t5) Remove Front" << endl;
+  cout<<"\t\t\t\t\t6) Remove Back" << endl;
+  cout<<"\t\t\t\t\t7) Insert" << endl;
+  cout<<"\t\t\t\t\t8) Print" << endl;
+  cout<<"\t\t\t\t\t9) Quit" << endl;
+  cout<<"\t\t\t\t\t10) Search" << endl << endl;
 
   cin>> choice;
   return choice;
@@ -270,7 +350,7 @@ Out: none
 
 void clr_scrn(void)
 {
- cout<< string(100, '\n');
+ cout<< string(50, '\n');
 }
 
 
