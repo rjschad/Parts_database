@@ -42,6 +42,7 @@ class List
     void pushto_out(fstream& filoeout4);
     void lookup(Resistor* r_ptr, double num); // lookup specific part by value
     void lookup_bycase(string casetype); // lookup specific part by case
+    void lookup_bypartnum(Resistor* r_ptr, string partnum); // lookup specific part by case
     void print();                             // print list
     void insert(Resistor* r_ptr, double num); // insert in order
     bool empty();                             // check if list is empty
