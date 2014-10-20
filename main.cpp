@@ -158,7 +158,7 @@ do
 
      case 2: // SEARCH
        clr_scrn();
-       cout<<"Search by: (1) Value  (2) Case  (3) Part No.  -->  ";
+       cout<<"\t\t\t\t\t\t\t\tSearch by: (1) Value  (2) Case  (3) Part No.  -->  ";
        cin>> s_choice;
        if(s_choice == 1)
          search_case();

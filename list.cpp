@@ -73,30 +73,40 @@ Out: none
 
 void List::lookup(Resistor* r_ptr, double num)
 {
+
+/////////////////////////
+
+
    int tracker = 0;
    ptr_lookup = ptr_head;
-   
+    
    if(ptr_head == NULL)
      {
       cout<< "No match found beacuse list is empty." << endl;
       return; 
      }
 
-    //cout<< "here1" << endl;
-    //cout<<"ptr: " <<ptr_lookup << endl;
-    //cout<<"ptr->m_next: "<< ptr_lookup->m_ptr_next << endl;
-   
-   while(num > ptr_lookup->r_ptr->get_value() && ptr_lookup->m_ptr_next != NULL)
+   if(ptr_lookup->r_ptr->get_value() == num)
+      tracker++;
+     
+
+   while(ptr_lookup->m_ptr_next != NULL)
+   {
      ptr_lookup = ptr_lookup->m_ptr_next;
  
-    //cout<< "here2" << endl;
-
-    if(ptr_lookup->r_ptr->get_value() == num)
-      {  
-         //cout<< "here3" << endl;
+     if(ptr_lookup->r_ptr->get_value() == num)
          tracker++;
-         cout<< endl;
-         cout<< tracker << " match found:" << num << endl;
+    }
+
+        if(tracker == 1)
+         cout<< tracker << " match found: " << num << endl;
+        if(tracker > 1)
+         cout<< tracker << " matches found: " << num << endl;
+
+   ptr_lookup = ptr_head; // reset ptr
+   
+  if(ptr_lookup->r_ptr->get_value() == num)
+        {  
          cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
          cout<<"\t";
          cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
@@ -109,18 +119,16 @@ void List::lookup(Resistor* r_ptr, double num)
          cout<<"\t\t";
          cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
          cout<<"\t\t";
-         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
-         return;
-      }
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<< endl;
+        }
+     
 
-   while(num < ptr_lookup->r_ptr->get_value() && ptr_lookup->m_ptr_prev != NULL)
-     ptr_lookup = ptr_lookup->m_ptr_prev;
+   while(ptr_lookup->m_ptr_next != NULL)
+   {
+     ptr_lookup = ptr_lookup->m_ptr_next;
  
-    if(ptr_lookup->r_ptr->get_value() == num)
-      {  
-         cout<< endl;
-         tracker++;
-         cout<< tracker << " match found:" << num << endl << endl;
+     if(ptr_lookup->r_ptr->get_value() == num)
+        {  
          cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
          cout<<"\t";
          cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
@@ -134,10 +142,11 @@ void List::lookup(Resistor* r_ptr, double num)
          cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
          cout<<"\t\t";
          cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
-         return;
-      }
+        }
+     }
 
-    cout<< "Not found" << endl;
+ if(tracker == 0)
+    cout<< "None found" << endl;
 }
 
 ////////////////////////////////////////////////////////////
@@ -603,14 +612,14 @@ void List::print()
 
   while(ptr_print != NULL)
   {
-     cout<< "Resistor value (ohms): " << ptr_print -> r_ptr-> get_value();
+     cout<< "Resistor value (ohms): " << ptr_print -> r_ptr-> get_value() << "  ";
      cout<<"\t";
-     cout<< "Quantity: " << ptr_print->r_ptr-> get_quant();
-     cout<<"\t\t";
+     cout<< "Quantity: " << ptr_print->r_ptr-> get_quant() <<"  " ;
+     cout<<"\t";
      cout<< "Case: " << ptr_print->r_ptr->get_case();
      cout<<"\t";
-     cout<< "Pwr(watts): " << ptr_print->r_ptr->get_power();
-     cout<<"\t\t";
+     cout<< "Pwr(watts): " << ptr_print->r_ptr->get_power() << "   ";
+     cout<<"\t";
      cout<< "Descr: " << ptr_print->r_ptr->get_smd();
      cout<<"\t";
      cout<< "Lim Volt: " << ptr_print->r_ptr->get_lev();

@@ -304,22 +304,18 @@ int Display(void)
 {
   int choice = 0;
   
-  cout<<"\t\t\t\t\tTEKPEA PARTS DATABASE" << endl;
-  cout<<"\t\t\t\t\t----------------------" << endl;
-  cout<<"\t\t\t\t\t    MENU OPTIONS" << endl;
-  cout<<"\t\t\t\t\t----------------------" << endl;
-  //cout<<"\t\t\t\t\t1) Add Front" << endl; 
-  //cout<<"\t\t\t\t\t2) Add Back" << endl; 
-  //cout<<"\t\t\t\t\t3) Count" << endl;
-  //cout<<"\t\t\t\t\t4) Empty" << endl; 
-  //cout<<"\t\t\t\t\t5) Remove Front" << endl;
-  //cout<<"\t\t\t\t\t6) Remove Back" << endl;
-  cout<<"\t\t\t\t\t(1) Insert" << endl;
-  cout<<"\t\t\t\t\t(2) Search" << endl;
-  cout<<"\t\t\t\t\t(3) Print" << endl;
-  cout<<"\t\t\t\t\t(4) Update" << endl;
-  cout<<"\t\t\t\t\t(5) Quit" << endl;
+  cout<<"\t\t\t\t\t\t\t\t\t\tTEKPEA PARTS DATABASE" << endl;
+  cout<<"\t\t\t\t\t\t\t\t\t\t----------------------" << endl;
+  cout<<"\t\t\t\t\t\t\t\t\t\t    MENU OPTIONS" << endl;
+  cout<<"\t\t\t\t\t\t\t\t\t\t----------------------" << endl;
+  cout<<"\t\t\t\t\t\t\t\t\t\t(1) Insert" << endl;
+  cout<<"\t\t\t\t\t\t\t\t\t\t(2) Search" << endl;
+  cout<<"\t\t\t\t\t\t\t\t\t\t(3) Print" << endl;
+  cout<<"\t\t\t\t\t\t\t\t\t\t(4) Update" << endl;
+  cout<<"\t\t\t\t\t\t\t\t\t\t(5) Quit" << endl;
+  cout<<"\n\n\n\n\n\n\n";
 
+  cout<<"\t\t\t\t\t";
   cin>> choice;
   return choice;
 }
