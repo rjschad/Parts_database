@@ -61,13 +61,9 @@ int main( int argc, char* argv[])
 {
 
    list.track = 0; 
-   //int number=0;
-   //int num_add =0;
    int s_choice = 0;
    int c_choice = 0;
 
-   //double in_num = 0.00; 
-   //int in_num_r = 0;
    string in_string;
    string case_search;
    string partnumber;
@@ -80,7 +76,7 @@ int main( int argc, char* argv[])
 //-----------------------------------------------------------------
 load_file(); 
 
-fstream ofile1_init("output4.txt", ios::out); 
+fstream ofile1_init("output5.txt", ios::out); 
 
 do
  {
@@ -88,70 +84,6 @@ do
 
    switch(Display()) // act on user input
    {
-     /*
-     case 1: // ADD FRONT
-       clr_scrn();
-       cout<< "Add number to front: " << endl;
-       cin>> num_add;
-       list.addfront(rptr,num_add);
-       list.track++; // increment track
-       clr_scrn();
-       list.print();
-       user_choice();
-       clr_scrn();
-       break;
-
-     case 2: // ADD BACK
-       clr_scrn();
-       cout<< "Add number to back: " << endl;
-       cin>> num_add;
-       list.addback(rptr,num_add);
-       list.track++;
-       clr_scrn();
-       list.print();
-       user_choice();
-       clr_scrn();
-       break;
-
-     case 3: // COUNT
-       clr_scrn();
-       cout<< "list cnt: " << list.track << endl;
-       list.print();
-       user_choice();
-       clr_scrn();
-       break;
-
-     case 4: // EMPTY
-       clr_scrn();
-       empty();
-       user_choice();
-       clr_scrn();
-       break;
-
-     case 5: // REMOVE FRONT
-       clr_scrn();
-       list.remove_front(); 
-       if(list.track == 0)
-        {clr_scrn();cout<< "Empty List" << endl; user_choice(); clr_scrn(); break;}
-       list.track--; // decrement track
-       assert(list.track !=  -1); // error check
-       list.print();
-       user_choice();
-       clr_scrn();
-       break;
-
-     case 6: // REMOVE BACK
-       clr_scrn();
-       list.remove_back(); 
-       if(list.track == 0)
-        {clr_scrn();cout<< "Empty List" << endl; user_choice(); clr_scrn(); break;}
-       list.track--;
-       assert(list.track !=  -1); // error check
-       list.print();
-       user_choice();
-       clr_scrn();
-       break;
-     */
      case 1: // INSERT
        insert_case();
        break;

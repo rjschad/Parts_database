@@ -20,11 +20,11 @@ Part.o: Part.cpp Part.h
 
 # makes the object file list.o
 list.o: list.cpp list.h
-	g++ -wall -pedantic -g -c list.cpp
+	g++ -Wall -pedantic -g -c list.cpp
 
 # makes the object file functions.o
 functions.o: functions.cpp functions.h
-	g++ -wall -pedantic -g -c functions.cpp
+	g++ -Wall -pedantic -g -c functions.cpp
 
 #Compiler Options:
 #files first get compiled into object files, then later linked into the .exe

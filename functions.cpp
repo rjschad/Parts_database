@@ -13,6 +13,85 @@
 
 using namespace std;
 
+////////////////////////////////////////////////////////////
+/*
+
+Desc: Parse the load file
+In: None
+Out: double to indicate the true number representation
+
+*/
+
+
+double load_parser(char buffer[5])
+{
+
+  //char buffer[5];
+  char num_buf[20];
+  char let_buf[20];
+  char* c; 
+  int num_trck = 0;
+  int let_trck = 0;
+  //int k = 0;
+
+  //cout<< "Enter Resistor Value: ";
+  //cin >> buffer;
+  c = buffer; 
+   
+
+/*  BEGIN PARSING STRING  */
+
+do
+{
+	 if( *c == '.' || (*c >= '0' && *c <= '9'))
+	{
+          num_buf[num_trck] = *c;
+          num_trck++;
+	  c++;
+	}
+	 else // assuming there is only 1 letter appending entry
+	{ 
+           let_buf[let_trck] = *c;
+           let_trck++;
+	   break;   
+	}
+
+}while(c);
+
+
+num_buf[num_trck] = '\n';
+let_buf[let_trck] = '\n';
+
+ c = num_buf;
+
+// CONVERT NUM_BUFFER TO TYPE DOUBLE
+
+double value = 0.0;
+value = atof(num_buf);
+
+
+c=let_buf; //reset ptr
+
+// ENSURE CASE SENSITIVE INPUTS
+
+if(*c ==  'k' || *c == 'K')
+{
+  value =  value*1000;
+  //cout<< "final value: " << value << endl;
+}
+else if(*c == 'm' || *c == 'M')
+{
+  value = value*1000000;
+  //cout<< "final value: " << value << endl;
+}
+else 
+{ 
+value = value;
+//cout<< "final value: " << value << endl;
+}
+
+ return value;
+}
 
 ////////////////////////////////////////////////////////////
 /*
@@ -25,7 +104,6 @@ Out: None
 
 void load_file()
 {
-
         string casetype;
         string parttype;
         string getinfo;
@@ -37,11 +115,12 @@ void load_file()
         double value = 0.00;
         double lim_volt = 0.00;
         int quant = 0;
+        string parse_value;
         char* cstr = new char[str.length()];
 
 	/* Load data into array */
-	fstream ifile_1("output4.txt",ios::in);
-	fstream ifile_2("output4.txt",ios::in); // used for to track # of entries
+	fstream ifile_1("output5.txt",ios::in);
+	fstream ifile_2("output5.txt",ios::in); // used for to track # of entries
 
       while(ifile_2)
       {
@@ -58,17 +137,21 @@ void load_file()
           strcpy(cstr, str.c_str()); // cstr contains a cstyle string copr of str
 
           if(track == 1)
-             value = atof(cstr);
+            {
+             //parse_value = cstr; //get string value of number
+             value =  load_parser(cstr);
+             //value = atof(cstr);     //value, old code
+            }
           if(track == 2)
-             quant = atoi(cstr);
+             quant = atoi(cstr);     //quantity
           if(track == 3)
-             casetype = cstr;
+             casetype = cstr;        //case
           if(track == 4)
-             parttype = cstr;
+             parttype = cstr;        //part type 
           if(track == 5)
-             smd = cstr;
+             smd = cstr;             //smd
           if(track == 6)
-             lim_volt = atof(cstr);
+             lim_volt = atof(cstr);  //limit volt
           if(track == 7)
             {
              pwr = cstr;
@@ -184,7 +267,6 @@ void insert_case(void)
 
    rptr = new Resistor(r_val,r_quant, r_case, r_part, r_smd, r_limvolt, r_power);
 
-
        clr_scrn();
        list.track++;
        list.insert(rptr, r_val);
@@ -212,6 +294,8 @@ void search_case(void)
        user_choice();
        clr_scrn();
 }
+
+
 ////////////////////////////////////////////////////////////
 /*
 
