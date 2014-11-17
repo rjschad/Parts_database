@@ -17,6 +17,12 @@ Resistor::Resistor(double value, int quant, string casetype, string partno, stri
    m_power = power;
 }
 
+void Resistor::edit_value(double changeValue)
+{
+  double newValue = changeValue;
+  m_value = newValue;
+}
+
 void Resistor::print()
 {
    cout<< "Value: " << m_value << endl;

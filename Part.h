@@ -18,6 +18,7 @@ using namespace std;
        string get_smd();
        double get_lev();
        string get_power();
+       void edit_value(double changeValue);
 
      private:
        double m_value;

@@ -38,20 +38,21 @@ class List
     List(); // contructor
    ~List(); // destructor
    
-    void pushto_out(fstream& fileout);       // push list contents to output file
-    void lookup(Resistor* r_ptr, double num);  // lookup specific part
-    void lookup_bycase(string casetype); // lookup specific part by case
-    void lookup_bypartnum(string partnum); // lookup specific part by case
-    void print();                            // print list
+    void pushto_out(fstream& fileout);        // push list contents to output file
+    void lookup(Resistor* r_ptr, double num); // lookup specific part
+    void lookup_bycase(string casetype);      // lookup specific part by case
+    void lookup_bypartnum(string partnum);    // lookup specific part by case
+    void print();                             // print list
     void insert(Resistor* r_ptr, double num); // insert in order
-    bool empty();                            // check if list is empty
+    bool empty();                             // check if list is empty
     void addfront(Resistor* r_ptr, int num);  // add to front of list
     void addback(Resistor* r_ptr, int num);   // add to back of list
-    void remove_front(void);                 // remove from front of list
-    void remove_back(void);                  // remove from back of list
-    int  track;                              // track number of elements in list
+    void remove_front(void);                  // remove from front of list
+    void remove_back(void);                   // remove from back of list
+    int  track;                               // track number of elements in list
     void remove(string partnumber);
     void adv_search_partno(void);
+    void edit(double num);
 
   private:   
 
@@ -62,14 +63,14 @@ class List
        {
          m_ptr_prev = prev; // pointer to next node
          m_ptr_next = next; // pointer to previous node
-         m_num = num; // this is getting moved to the Resistor class
+         m_num = num;       // this is getting moved to the Resistor class
          r_ptr = res_ptr;
        }
 
        Resistor* r_ptr;
-       Node* m_ptr_prev; // previous pointer
-       Node* m_ptr_next; // next pointer
-       double m_num;        // number stores in node
+       Node* m_ptr_prev;     // previous pointer
+       Node* m_ptr_next;     // next pointer
+       double m_num;         // number stores in node
     };
 
  Node* ptr_head;    // pointer to head of list

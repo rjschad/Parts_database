@@ -84,72 +84,76 @@ fstream ofile1_init("output5.txt", ios::out);
 
 do
  {
-  clr_scrn(); //clear screen initally
+  clr_scrn(); 
 
    switch(Display()) // act on user input
    {
-     case 1: // INSERT
+     case 1: // Insert
        insert_case();
        break;
 
-     case 2: // SEARCH
+     case 2: // Search
        clr_scrn();
        cout<<"\t\t\t\t\t\t\t\tSearch by: (1) Value  (2) Case  (3) Part No. (4) Advanced Part Search -->  ";
        cin>> s_choice;
-       if(s_choice == 1)
-         search_case();
-       if(s_choice == 2)
-         {
-          cout<< "Enter Case Type: ";
-          cout<< "(1) 0402  (2) 0603  (3) axial  (4) 0805  (5) 2010  -->  ";
-          cin >> c_choice;
 
-        while(c_choice >= 0)
+         if(s_choice == 1)
+           search_case();
+         
+         if(s_choice == 2)
+           {
+            cout<< "Enter Case Type: ";
+            cout<< "(1) 0402  (2) 0603  (3) axial  (4) 0805  (5) 2010  -->  ";
+            cin >> c_choice;
+
+              while(c_choice >= 0)
+               {
+                if(c_choice == 1)
+                  { case_search = case1;break;}
+                if(c_choice == 2)
+                   {case_search = case2;break;}
+                if(c_choice == 3)
+                   {case_search = case3;break;}
+                if(c_choice == 4)
+                   {case_search = case4;break;}
+                if(c_choice == 5)
+                   {case_search = case5;break;}
+                if(c_choice < 1 || c_choice > 5)
+                  { 
+                     cout<<"Invalid chocie!" <<endl;
+                     cout<< "Enter Case Type: ";
+                     cout<< "(1) 0402  (2) 0603  (3) axial  (4) 0805  (5) 2010  -->  ";
+                     cin >> c_choice;
+                  }
+                }          
+
+             clr_scrn();
+             list.lookup_bycase(case_search);
+             user_choice();
+             clr_scrn();
+          }
+
+         if(s_choice == 3)
          {
-          if(c_choice == 1)
-            { case_search = case1;break;}
-          if(c_choice == 2)
-             {case_search = case2;break;}
-          if(c_choice == 3)
-             {case_search = case3;break;}
-          if(c_choice == 4)
-             {case_search = case4;break;}
-          if(c_choice == 5)
-             {case_search = case5;break;}
-          if(c_choice < 1 || c_choice > 5)
-            { 
-             cout<<"Invalid chocie!" <<endl;
-             cout<< "Enter Case Type: ";
-             cout<< "(1) 0402  (2) 0603  (3) axial  (4) 0805  (5) 2010  -->  ";
-             cin >> c_choice;
-            }
-          }          
            clr_scrn();
-           list.lookup_bycase(case_search);
+           cout<< "Enter Part No: " << endl;
+           cin >> partnumber;
+           list.lookup_bypartnum(partnumber);
+           cout<<endl;
            user_choice();
            clr_scrn();
-         }
-       if(s_choice == 3)
-       {
-         clr_scrn();
-         cout<< "Enter Part No: " << endl;
-         cin >> partnumber;
-         list.lookup_bypartnum(partnumber);
-         cout<<endl;
-         user_choice();
-         clr_scrn();
-        }
-       if(s_choice == 4)
-       {
+          }
+
+         if(s_choice == 4)
+         {
          /* advanced search algorithm */
-         clr_scrn();
-         list.adv_search_partno();
+           clr_scrn();
+           list.adv_search_partno();
+           cout<<endl;
+           user_choice();
+           clr_scrn();
+          }
 
-
-         cout<<endl;
-         user_choice();
-         clr_scrn();
-        }
        break;
 
      case 3: // PRINT
@@ -162,7 +166,14 @@ do
      
       case 4: // Update
        clr_scrn();
-       cout<< "Update in progress, see insert" << endl;
+       /*  
+       double numEntered;
+       cout<< "Enter value you wish to search for: " << endl;
+       cin>> numEntered;
+       */
+       list.edit(parser());
+
+
        cout<< endl;
        user_choice();
        clr_scrn();
@@ -176,17 +187,17 @@ do
        list.remove(partspec);
        break;
 
-     case 6: // QUIT
+     case 6: // Quit
        list.pushto_out(ofile1_init);
        clr_scrn();
        cout<< "Writing to output file.\nQuitting program...\n"<< endl;
        return 0; // return sucessfull
 
-
      default:
+       list.pushto_out(ofile1_init);
        clr_scrn();
        cout<< "You have entered an invalid choice.\n";
-       cerr<< "Program aborted..reporting" <<endl;
+       cerr<< "Program has been aborted." <<endl;
        return 1;//return error
 
    }
@@ -194,11 +205,13 @@ do
 
 } while(1);
 
+/* 
    cout<<endl;
    cout << "end of program !!! \n";
    cout.flush(); // flush output
-   
    return 0;
+
+*/
 
 }
 

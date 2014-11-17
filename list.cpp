@@ -67,6 +67,98 @@ List::~List()
 ////////////////////////////////////////////////////////////
 /*
 
+Desc: edit specific part values
+In: number(double)
+Out: none
+
+*/
+
+
+void List::edit(double num)
+{
+  //cin.get(); //pause
+
+   int tracker = 0;
+   ptr_lookup = ptr_head;
+    
+   if(ptr_head == NULL)
+     {
+      cout<< "No match found beacuse list is empty." << endl;
+      return; 
+     }
+     
+   while(ptr_lookup->m_ptr_next != NULL)
+   {
+     ptr_lookup = ptr_lookup->m_ptr_next;
+ 
+     if(ptr_lookup->r_ptr->get_value() == num)
+      {tracker++;}
+   }
+
+    if(tracker == 1)
+     cout<< tracker << " match found: " << num << endl;
+    if(tracker > 1)
+     cout<< tracker << " matches found: " << num << endl;
+
+  cout<<"______________________________________________________________________________________________________" <<endl<<endl;
+  cout<<" Value(ohms)   Quantity    Case      Pwr(watts)       Description        Lim Volt          Part. No" << endl;
+  cout<<"______________________________________________________________________________________________________" <<endl << endl;
+
+   ptr_lookup = ptr_head; // reset ptr
+     
+   while(ptr_lookup->m_ptr_next != NULL)
+   {
+     ptr_lookup = ptr_lookup->m_ptr_next;
+ 
+     if(ptr_lookup->r_ptr->get_value() == num)
+        {  
+         cout << " ";
+         cout << setprecision(7) << ptr_lookup -> r_ptr-> get_value() << "       "; 
+         cout<<"\t";
+         cout<< ptr_lookup->r_ptr-> get_quant() <<"    ";  
+         cout<<"\t  ";
+         cout<< ptr_lookup->r_ptr->get_case() <<"   ";
+         cout<<"\t";
+         cout<< ptr_lookup->r_ptr->get_power() <<"   ";
+         cout<<"\t    ";
+         cout<<ptr_lookup->r_ptr->get_smd() <<"    ";
+         cout<<"\t  ";
+         cout<< ptr_lookup->r_ptr->get_lev() <<"    ";
+         cout<<"\t  ";
+         cout<< ptr_lookup->r_ptr->get_partno()<<endl;
+        }
+     }
+
+ if(tracker == 0)
+    cout<< "None found" << endl;
+
+ string  usrPart;
+ cout<< endl;
+ cout<< "Copy and Paste the part. no below" << endl;
+ cin >> usrPart;
+
+ int choice = 0;
+ lookup_bypartnum(usrPart); // lookup by specific part number
+ cout<<"\nChoose which attribute to edit: " <<endl; 
+ cout<<"1)Value" <<endl;
+ cout<<"2)Quantity" <<endl;
+ cout<<"3)Case" <<endl;
+ cout<<"4)Power" <<endl;
+ cout<<"5)Type" <<endl;
+ cout<<"6)Limiting Volt" <<endl;
+ cout<<"7)Part No" <<endl;
+
+ cin>> choice;
+
+ //if(choice == 4)
+  //edit part 
+
+ 
+}
+
+////////////////////////////////////////////////////////////
+/*
+
 Desc: lookup specific part by value
 In: number (double)
 Out: none
@@ -76,7 +168,6 @@ Out: none
 
 void List::lookup(Resistor* r_ptr, double num)
 {
-
 
    int tracker = 0;
    ptr_lookup = ptr_head;
@@ -97,52 +188,39 @@ void List::lookup(Resistor* r_ptr, double num)
  
      if(ptr_lookup->r_ptr->get_value() == num)
          tracker++;
-    }
+   }
 
         if(tracker == 1)
          cout<< tracker << " match found: " << num << endl;
         if(tracker > 1)
          cout<< tracker << " matches found: " << num << endl;
 
-   ptr_lookup = ptr_head; // reset ptr
-   
-  if(ptr_lookup->r_ptr->get_value() == num)
-        {  
-         cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
-         cout<<"\t";
-         cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
-         cout<<"\t";
-         cout<< "Case: " << ptr_lookup->r_ptr->get_case();
-         cout<<"\t";
-         cout<< "Pwr(watts): " << ptr_lookup->r_ptr->get_power();
-         cout<<"\t\t";
-         cout<< "Descr: " << ptr_lookup->r_ptr->get_smd();
-         cout<<"\t\t";
-         cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
-         cout<<"\t\t";
-         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<< endl;
-        }
-     
+  cout<<"______________________________________________________________________________________________________" <<endl<<endl;
+  cout<<" Value(ohms)   Quantity    Case      Pwr(watts)       Description        Lim Volt          Part. No" << endl;
+  cout<<"______________________________________________________________________________________________________" <<endl << endl;
 
+   ptr_lookup = ptr_head; // reset ptr
+     
    while(ptr_lookup->m_ptr_next != NULL)
    {
      ptr_lookup = ptr_lookup->m_ptr_next;
  
      if(ptr_lookup->r_ptr->get_value() == num)
         {  
-         cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
+         cout << " ";
+         cout << setprecision(7) << ptr_lookup -> r_ptr-> get_value() << "       "; 
          cout<<"\t";
-         cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
+         cout<< ptr_lookup->r_ptr-> get_quant() <<"    ";  
+         cout<<"\t  ";
+         cout<< ptr_lookup->r_ptr->get_case() <<"   ";
          cout<<"\t";
-         cout<< "Case: " << ptr_lookup->r_ptr->get_case();
-         cout<<"\t";
-         cout<< "Pwr(watts): " << ptr_lookup->r_ptr->get_power();
-         cout<<"\t\t";
-         cout<< "Descr: " << ptr_lookup->r_ptr->get_smd();
-         cout<<"\t\t";
-         cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
-         cout<<"\t\t";
-         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
+         cout<< ptr_lookup->r_ptr->get_power() <<"   ";
+         cout<<"\t    ";
+         cout<<ptr_lookup->r_ptr->get_smd() <<"    ";
+         cout<<"\t  ";
+         cout<< ptr_lookup->r_ptr->get_lev() <<"    ";
+         cout<<"\t  ";
+         cout<< ptr_lookup->r_ptr->get_partno()<<endl;
         }
      }
 
@@ -164,7 +242,7 @@ void List::lookup_bypartnum(string partnum)
 {
    int tracker = 0;
    ptr_lookup = ptr_head;
-   cout<< "Part no. entered: " << partnum << endl;
+//   cout<< "Part no. entered: " << partnum << endl;
    
    if(ptr_head == NULL)
      {
@@ -186,14 +264,14 @@ void List::lookup_bypartnum(string partnum)
 
    //found partnumber
 
-     cout<<"printing part no: " << ptr_lookup->r_ptr->get_partno() << endl;
-     cout<<"printing part value: " << ptr_lookup->r_ptr->get_value() << endl;
+ //    cout<<"printing part no: " << ptr_lookup->r_ptr->get_partno() << endl;
+  //   cout<<"printing part value: " << ptr_lookup->r_ptr->get_value() << endl;
   //   cout<<"here2" << endl;
 
 
     if(ptr_lookup->r_ptr->get_partno() == partnum)
       {  
-         cout<< "here3" << endl;
+         //cout<< "here3" << endl;
          tracker++;
          cout<< endl;
          cout<< tracker << " match found:" << partnum << endl;
@@ -254,50 +332,47 @@ void List::adv_search_partno(void)
       cout<< "No match found because list is empty." << endl;
       return; 
      }
-    
+   
   while(ptr_lookup->m_ptr_next != NULL) 
    {
      string getpart = ptr_lookup->r_ptr->get_partno();
-     /* pass 'getpart' & cstyPtr to userPart_srch() to compare, return true if match else false*/
-
      if(userPart_srch(cstyPtr, getpart))
-     {
-       cout<< ptr_lookup->r_ptr->get_partno()<<endl;
        tracker++;
-     }
-
-     ptr_lookup = ptr_lookup->m_ptr_next; // go to next
+     ptr_lookup = ptr_lookup->m_ptr_next; 
    }
 
   cout<< endl;
-  cout<< tracker << " matches that fit your description." << endl;
+  cout<< tracker << " matches that fit your description." << endl << endl;
+  cout<<"______________________________________________________________________________________________________" <<endl<<endl;
+  cout<<" Value(ohms)   Quantity    Case      Pwr(watts)       Description        Lim Volt          Part. No" << endl;
+  cout<<"______________________________________________________________________________________________________" <<endl << endl;
 
+  ptr_lookup = ptr_head; // set ptr to head
 
-/*  
-    if(ptr_lookup->r_ptr->get_partno() == partnum)
-      {  
-         cout<< "here3" << endl;
-         tracker++;
-         cout<< endl;
-         cout<< tracker << " match found:" << partnum << endl;
-         cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
+  while(ptr_lookup->m_ptr_next != NULL) 
+   {
+     string getpart = ptr_lookup->r_ptr->get_partno();
+
+     if(userPart_srch(cstyPtr, getpart))
+     {
+         cout << " ";
+         cout << setprecision(7) << ptr_lookup -> r_ptr-> get_value() << "       "; 
          cout<<"\t";
-         cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
+         cout<< ptr_lookup->r_ptr-> get_quant() <<"    ";  
+         cout<<"\t  ";
+         cout<< ptr_lookup->r_ptr->get_case() <<"   ";
          cout<<"\t";
-         cout<< "Case: " << ptr_lookup->r_ptr->get_case();
-         cout<<"\t";
-         cout<< "Pwr(watts): " << ptr_lookup->r_ptr->get_power();
-         cout<<"\t\t";
-         cout<< "Descr: " << ptr_lookup->r_ptr->get_smd();
-         cout<<"\t\t";
-         cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
-         cout<<"\t\t";
-         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
-         return;
-      }
-     else
-      cout<< "Not found" << endl;
-*/
+         cout<< ptr_lookup->r_ptr->get_power() <<"   ";
+         cout<<"\t    ";
+         cout<<ptr_lookup->r_ptr->get_smd() <<"    ";
+         cout<<"\t  ";
+         cout<< ptr_lookup->r_ptr->get_lev() <<"    ";
+         cout<<"\t  ";
+         cout<< ptr_lookup->r_ptr->get_partno()<<endl;
+     }
+     ptr_lookup = ptr_lookup->m_ptr_next; // go to next
+   }
+
 
 }
 
