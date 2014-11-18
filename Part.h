@@ -18,7 +18,12 @@ using namespace std;
        string get_smd();
        double get_lev();
        string get_power();
-       void edit_value(double changeValue);
+       void edit_quant(int changeValue);
+       void edit_case(string changeCase);
+       void edit_partno(string changePartno);
+       void edit_smd(string changeSmd);
+       void edit_pwr(string changePwr);
+       void edit_lev(double changeLev);
 
      private:
        double m_value;

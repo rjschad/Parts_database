@@ -17,10 +17,40 @@ Resistor::Resistor(double value, int quant, string casetype, string partno, stri
    m_power = power;
 }
 
-void Resistor::edit_value(double changeValue)
+void Resistor::edit_quant(int changeValue)
 {
-  double newValue = changeValue;
-  m_value = newValue;
+  int newValue = changeValue;
+  m_quant = newValue;
+}
+
+void Resistor::edit_case(string changeCase)
+{
+  string newValue = changeCase;
+  m_case = newValue;
+}
+
+void Resistor::edit_partno(string changePartno)
+{
+  string newValue = changePartno;
+  m_partno = newValue;
+}
+
+void Resistor::edit_smd(string changeSmd)
+{
+  string newValue = changeSmd;
+  m_smd = newValue;
+}
+
+void Resistor::edit_pwr(string changePwr)
+{
+  string newValue = changePwr;
+  m_power = newValue;
+}
+
+void Resistor::edit_lev(double changeLev)
+{
+  double newValue = changeLev;
+  m_lev = newValue;
 }
 
 void Resistor::print()
