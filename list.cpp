@@ -150,6 +150,10 @@ void List::edit(double num)
  cout<<endl;
  cin>> choice;
 
+ //char choice2;
+
+//do
+//{
  if(choice == 1)
  {
    int quant;
@@ -174,7 +178,10 @@ void List::edit(double num)
          cout<<"\t\t";
          cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
 
-}
+ //   cout<< "Continue editing parts, y/n" << endl;
+  //  cin>> choice;
+
+  }
     
  if(choice == 2)
  {
@@ -199,6 +206,9 @@ void List::edit(double num)
          cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
          cout<<"\t\t";
          cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
+
+   // cout<< "Continue editing parts, y/n" << endl;
+    //cin>> choice;
 
 }
 
@@ -226,9 +236,100 @@ void List::edit(double num)
          cout<<"\t\t";
          cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
 
-}
+    //cout<< "Continue editing parts, y/n" << endl;
+    //cin>> choice;
 
+   }
+
+ if(choice == 4)
+ {
+   string newSmd;
+   cout<<"Enter new Type (surface mount/through hole): " << endl;
+   cin >> newSmd;
+   cout<< endl;
+
+   ptr_lookup-> r_ptr-> edit_smd(newSmd);
+   cout<<"changes made..." <<endl;
+
+         cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
+         cout<<"\t";
+         cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
+         cout<<"\t";
+         cout<< "Case: " << ptr_lookup->r_ptr->get_case();
+         cout<<"\t";
+         cout<< "Pwr(watts): " << ptr_lookup->r_ptr->get_power();
+         cout<<"\t\t";
+         cout<< "Descr: " << ptr_lookup->r_ptr->get_smd();
+         cout<<"\t\t";
+         cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
+         cout<<"\t\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
+
+    //cout<< "Continue editing parts, y/n" << endl;
+    //cin>> choice;
+
+    }
+
+ if(choice == 5)
+ {
+   double newLev;
+   cout<< "Enter new Limiting Element Volt: " << endl;
+   cin >> newLev;
+   cout<< endl;
+
+   ptr_lookup-> r_ptr-> edit_lev(newLev);
+   cout<<"changes made..." <<endl;
+
+         cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
+         cout<<"\t";
+         cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
+         cout<<"\t";
+         cout<< "Case: " << ptr_lookup->r_ptr->get_case();
+         cout<<"\t";
+         cout<< "Pwr(watts): " << ptr_lookup->r_ptr->get_power();
+         cout<<"\t\t";
+         cout<< "Descr: " << ptr_lookup->r_ptr->get_smd();
+         cout<<"\t\t";
+         cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
+         cout<<"\t\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
+
+    //cout<< "Continue editing parts, y/n" << endl;
+    //cin>> choice;
+
+  }
  
+ if(choice == 6)
+ {
+   string newPartno;
+   cout<<"Enter new Part no. " << endl;
+   cin >> newPartno;
+   cout<< endl;
+
+   ptr_lookup-> r_ptr-> edit_partno(newPartno);
+   cout<<"changes made..." <<endl;
+
+         cout<< "Resistor value (ohms): " << ptr_lookup -> r_ptr-> get_value();
+         cout<<"\t";
+         cout<< "Quantity: " << ptr_lookup->r_ptr-> get_quant();
+         cout<<"\t";
+         cout<< "Case: " << ptr_lookup->r_ptr->get_case();
+         cout<<"\t";
+         cout<< "Pwr(watts): " << ptr_lookup->r_ptr->get_power();
+         cout<<"\t\t";
+         cout<< "Descr: " << ptr_lookup->r_ptr->get_smd();
+         cout<<"\t\t";
+         cout<< "Lim Volt: " << ptr_lookup->r_ptr->get_lev();
+         cout<<"\t\t";
+         cout<< "Part No: " << ptr_lookup->r_ptr->get_partno()<<endl;
+
+    //cout<< "Continue editing parts, y/n" << endl;
+    //cin>> choice;
+
+ }
+
+// }while(choice > 0 || choice < 7 );
+
 }
 
 ////////////////////////////////////////////////////////////
